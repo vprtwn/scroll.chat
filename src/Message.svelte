@@ -40,49 +40,47 @@
 
 <Page>
   <main>
-    <main>
-      <div class="scrollable" bind:this={main}>
-        {#each $store as val (val.msgId)}
-          <article>
-            <div class="meta">
-              <span class="time">
-                {new Date(val.time).toLocaleString('en-US')}
-              </span>
-              <span class="user">{val.user}</span>
-            </div>
-            <div>
-              {val.msg}
-              <button
-                on:click|preventDefault={() => {
-                  const yes = confirm('Are you sure?');
-                  if (yes) store.delete(val.msgId);
-                }}>
-                delete
-              </button>
-            </div>
-          </article>
-        {/each}
-      </div>
+    <div class="scrollable" bind:this={main}>
+      {#each $store as val (val.msgId)}
+        <div>
+          <span class="meta">
+            <span class="time">
+              {new Date(val.time).toLocaleString('en-US')}
+            </span>
+            <span class="user">{val.user.substr(0, 5)}</span>
+          </span>
+          <span class="meta">
+            {val.msg}
+            <button
+              on:click|preventDefault={() => {
+                const yes = confirm('Are you sure?');
+                if (yes) store.delete(val.msgId);
+              }}>
+              delete
+            </button>
+          </span>
+        </div>
+      {/each}
+    </div>
 
-      <form
-        bind:this={form}
-        method="get"
-        autocomplete="off"
-        on:submit|preventDefault>
-        <Input
-          on:submit={e => {
-            if (!msgInput) return;
-            $store = { msg: msgInput, user: $user };
-            msgInput = '';
-            main.scrollTo(0, main.scrollHeight);
-          }}
-          refocus={true}
-          maxLines={3}
-          bind:value={msgInput}
-          name="msg"
-          placeholder="Message"
-          ariaLabel="Message" />
-      </form>
-    </main>
+    <form
+      bind:this={form}
+      method="get"
+      autocomplete="off"
+      on:submit|preventDefault>
+      <Input
+        on:submit={e => {
+          if (!msgInput) return;
+          $store = { msg: msgInput, user: $user };
+          msgInput = '';
+          main.scrollTo(0, main.scrollHeight);
+        }}
+        refocus={true}
+        maxLines={3}
+        bind:value={msgInput}
+        name="msg"
+        placeholder="Message"
+        ariaLabel="Message" />
+    </form>
   </main>
 </Page>

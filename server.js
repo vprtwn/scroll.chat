@@ -4,7 +4,7 @@ const Gun = require("gun");
 
 const server = new Hapi.Server({
   port: 8765,
-  host: "localhost",
+  host: "0.0.0.0", // needed for Render deployment
 });
 
 async function runtime() {
