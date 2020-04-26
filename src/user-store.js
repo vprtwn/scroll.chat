@@ -1,7 +1,8 @@
 import { writable } from "svelte/store";
+import cuid from "cuid";
 
 function createUser() {
-  const initialUser = JSON.parse(sessionStorage.getItem("chat_user")) || "";
+  const initialUser = JSON.parse(sessionStorage.getItem("chat_user")) || cuid();
 
   const { subscribe, update, set } = writable(initialUser);
 

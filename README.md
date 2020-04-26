@@ -1,6 +1,18 @@
 # GunDB Chat
 
-Made with ♥️ by Koen van Gilst using svelte and gunDB.
+Original: Made with ♥️ by Koen van Gilst using svelte and gunDB.
+
+## Setup
+
+```
+npm i nodemon -g
+```
+
+### Run server
+
+```
+nodemon server.js
+```
 
 ## Credits
 

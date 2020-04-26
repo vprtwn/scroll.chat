@@ -16,13 +16,13 @@ function removeByMsgId(array, msgId) {
 
 function createStore() {
   const gun = new Gun([
-    // "http://localhost:8765/gun",
-    "https://phrassed.com/gun",
+    "http://localhost:8765/gun",
+    // "https://phrassed.com/gun",
     // "https://gunjs.herokuapp.com/gun", // Don't use, unstable
   ]);
 
   const { subscribe, update } = writable([]);
-  const chats = gun.get("chats-v2"); // "chats" was bombed to death
+  const chats = gun.get("chats-v3"); // "chats" was bombed to death
 
   chats.map().on((val, msgId) => {
     update((state) => {
