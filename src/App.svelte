@@ -1,6 +1,7 @@
 <script>
   import { user } from "./user-store.js";
   import { store } from "./gun-store";
+  import { format } from "timeago.js";
 
   let textarea;
   let value;
@@ -17,7 +18,6 @@
     if (!value) return;
     $store = { msg: value, user: $user };
     value = "";
-    if (refocus) textarea.focus();
   }
 </script>
 
@@ -44,7 +44,7 @@ https://dev.to/silvio/how-to-create-a-web-components-in-svelte-2g4j
     {#each $store as val (val.msgId)}
       <div>
         <span class="meta">
-          <span class="time">{new Date(val.time).toLocaleString('en-US')}</span>
+          <span class="time">{format(val.time)}</span>
           <span class="user">{val.user.substr(0, 5)}</span>
         </span>
         <span class="meta">

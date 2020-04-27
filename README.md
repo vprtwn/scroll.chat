@@ -1,23 +1,19 @@
-# GunDB Chat
+# P2P web component
 
-## Setup
+GunDB realtime p2p chat in a Svelte web component
 
-```
-npm i nodemon -g
-```
+## yarn commands
 
-### Run locally
+- `build`: build to bundle.js
+- `dev`: build/watch/serve
+- `server`: run gundb server
 
-```
-nodemon server.js
-```
+## clear gunDB user
 
-### Run locally
+browser console:
+`sessionStorage.clear()`
 
-## Acknowledgements
+## acknowledgements
 
-- Forked from an excellent [Svelte + GUN chat example](https://github.com/vnglst/svelte-gundb-chat) by [@vnglst](https://twitter.com/vnglst)
-
-Original: Made with ♥️ by Koen van Gilst using svelte and gunDB.
-
-- Icons made by <a href="https://www.flaticon.com/authors/dave-gandy" title="Dave Gandy">Dave Gandy</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+- https://dev.to/silvio/how-to-create-a-web-components-in-svelte-2g4j
+- https://github.com/vnglst/svelte-gundb-chat

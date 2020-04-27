@@ -22,7 +22,8 @@
   "dependencies": {
     "cuid": "^2.1.8",
     "gun": "0.2019.425",
-    "sirv-cli": "^0.4.4"
+    "sirv-cli": "^0.4.4",
+    "timeago.js": "^4.0.2"
   },
   "engines": {
     "node": ">=0.12"
