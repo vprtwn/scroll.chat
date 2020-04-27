@@ -2,18 +2,14 @@
 
 GunDB realtime p2p chat in a Svelte web component
 
-## yarn commands
+## Developing
 
-- `build`: build to bundle.js
-- `dev`: build/watch/serve
-- `server`: run gundb server
+- `yarn build`: build to bundle.js
+- `yarn dev`: build/watch/serve
+- `yarn server`: run gundb server
+- To clear the GunDB user, run `sessionStorage.clear()` in your browser console.
 
-## clear gunDB user
-
-browser console:
-`sessionStorage.clear()`
-
-## acknowledgements
+## Acknowledgements
 
 - https://dev.to/silvio/how-to-create-a-web-components-in-svelte-2g4j
 - https://github.com/vnglst/svelte-gundb-chat
