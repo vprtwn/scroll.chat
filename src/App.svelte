@@ -11,12 +11,21 @@
   let scrollHeight;
   let value;
   let showingMessages = true;
+  let newMessageInput;
 
   function handleKeydown(e) {
+    // enter
     if (e.keyCode === 13) {
       if (!value) return;
       e.preventDefault();
       handleSubmit();
+    }
+    // esc
+    else if (e.keyCode === 27) {
+      if (showingMessages) {
+        e.preventDefault();
+        showingMessages = false;
+      }
     }
   }
 
@@ -30,19 +39,29 @@
     value = "";
   }
 
-  function handleSidebarClick() {
+  async function handleSidebarClick() {
+    if (!showingMessages) {
+      toggleShowingMessages();
+    }
     newMessageY = mouseY + scrollY - 10;
+    setTimeout(() => {
+      newMessageInput.focus();
+    }, 0);
   }
 
-  function resetNewMessageY() {
-    newMessageY = scrollY + innerHeight - 20 * 2 - 20 - 10;
-  }
-
-  function toggleShowingMessages() {
+  async function toggleShowingMessages() {
     showingMessages = !showingMessages;
     if (showingMessages) {
       resetNewMessageY();
+      setTimeout(() => {
+        newMessageInput.focus();
+      }, 0);
     }
+  }
+
+  // move message input to the bottom of the page
+  function resetNewMessageY() {
+    newMessageY = scrollY + innerHeight - 20 * 2 - 20 - 10;
   }
 
   onMount(async () => {
@@ -153,6 +172,7 @@ https://dev.to/silvio/how-to-create-a-web-components-in-svelte-2g4j
           type="text"
           name="null"
           maxLength="160"
+          bind:this={newMessageInput}
           bind:value
           on:keydown={handleKeydown}
           placeholder="new message" />
