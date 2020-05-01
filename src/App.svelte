@@ -98,7 +98,8 @@
 <style>
   .chat-sidebar {
     position: absolute;
-    background-color: black;
+    /* background-color: black; */
+    background-color: #000000aa;
     width: 10px;
     z-index: 40;
   }
@@ -129,24 +130,44 @@
   .new-message {
     position: fixed;
     bottom: 0px;
-    padding-bottom: 30px;
+    padding-bottom: 35px;
     padding-left: 10px;
   }
 
   .new-message input {
     background: #ffffff;
     font-size: 15px;
-    padding: 5px;
+    padding: 10px;
     height: 20px;
     width: 300px;
+    border: solid;
+    border-width: 2px;
   }
 
   .chat-toolbar {
-    background-color: #000;
+    background-color: #000000aa;
     position: fixed;
+    margin-left: 10px;
     bottom: 0px;
-    padding-bottom: 10px;
     z-index: 50;
+  }
+
+  .toggle-chat-button {
+    background: none;
+    border: none;
+    padding: 0.2rem;
+    padding-right: 1rem;
+    padding-bottom: 1rem;
+    color: white;
+    font-size: 15px;
+  }
+
+  .send-button {
+    background: #000000;
+    border: none;
+    padding: 0.5rem;
+    color: white;
+    font-size: 15px;
   }
 </style>
 
@@ -191,13 +212,13 @@ https://dev.to/silvio/how-to-create-a-web-components-in-svelte-2g4j
           on:keydown={handleKeydown}
           placeholder="new message" />
         {#if value}
-          <button on:click={handleSubmit}>send</button>
+          <button class="send-button" on:click={handleSubmit}>send</button>
         {/if}
       </div>
     </form>
   </div>
   <div class="chat-toolbar">
-    <button on:click={toggleShowingMessages}>
+    <button class="toggle-chat-button" on:click={toggleShowingMessages}>
       {showingMessages ? '< hide' : '> chat'}
     </button>
   </div>
