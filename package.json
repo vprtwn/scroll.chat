@@ -20,6 +20,7 @@
     "svelte": "^3.21.0"
   },
   "dependencies": {
+    "color-hash": "^1.0.3",
     "cuid": "^2.1.8",
     "gun": "0.2019.425",
     "sirv-cli": "^0.4.4",

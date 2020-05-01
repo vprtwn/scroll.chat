@@ -5,10 +5,9 @@
   import { onMount } from "svelte";
 
   let mouseY = 0;
-  let newMessageY = 0;
   let scrollY = 0;
   let innerHeight = 0;
-  let scrollHeight;
+  let scrollHeight = 1;
   let value;
   let showingMessages = true;
   let newMessageInput;
@@ -35,54 +34,73 @@
 
   function handleSubmit() {
     if (!value) return;
-    $store = { msg: value, user: $user };
+    const message = JSON.stringify({
+      msg: value,
+      yRel: (scrollY + innerHeight - 100) / scrollHeight
+    });
+    $store = { msg: message, user: $user };
     value = "";
   }
 
   async function handleSidebarClick() {
-    if (!showingMessages) {
-      toggleShowingMessages();
-    }
-    newMessageY = mouseY + scrollY - 10;
-    setTimeout(() => {
-      newMessageInput.focus();
-    }, 0);
+    toggleShowingMessages();
   }
 
   async function toggleShowingMessages() {
     showingMessages = !showingMessages;
     if (showingMessages) {
-      resetNewMessageY();
       setTimeout(() => {
         newMessageInput.focus();
       }, 0);
     }
   }
 
-  // move message input to the bottom of the page
-  function resetNewMessageY() {
-    newMessageY = scrollY + innerHeight - 20 * 2 - 20 - 10;
+  function getY(val) {
+    let yRel = JSON.parse(val.msg)["yRel"];
+    return yRel * scrollHeight;
+  }
+
+  function toHSL(str) {
+    if (!str) return;
+    const opts = {
+      hue: [60, 360],
+      sat: [75, 100],
+      lum: [70, 71]
+    };
+    function range(hash, min, max) {
+      const diff = max - min;
+      const x = ((hash % diff) + diff) % diff;
+      return x + min;
+    }
+    let hash = 0;
+    if (str === 0) return hash;
+    for (let i = 0; i < str.length; i++) {
+      hash = str.charCodeAt(i) + ((hash << 5) - hash);
+      hash = hash & hash;
+    }
+    let h = range(hash, opts.hue[0], opts.hue[1]);
+    let s = range(hash, opts.sat[0], opts.sat[1]);
+    let l = range(hash, opts.lum[0], opts.lum[1]);
+    return `hsl(${h}, ${s}%, ${l}%)`;
   }
 
   onMount(async () => {
     scrollHeight = document.documentElement.scrollHeight;
-    resetNewMessageY();
+    const message = JSON.stringify({
+      msg: "",
+      yRel: -1
+    });
+    $store = { msg: message, user: $user };
+    value = "";
   });
 </script>
 
 <style>
-  .user {
-    text-align: right;
-  }
-
   .chat-sidebar {
     position: absolute;
     background-color: black;
     width: 10px;
     z-index: 40;
-    /* min-height: 100%; */
-    /* overflow: auto; */
-    /* left: 0px; */
   }
 
   .chat-messages {
@@ -92,32 +110,39 @@
     padding-left: 10px;
   }
 
+  .chat-message-container {
+    position: absolute;
+    width: calc(100vw - 10px);
+  }
+
   .chat-message {
-    background-color: #ffffffdd;
-  }
-
-  .chat-message-text {
-    font-size: 12px;
-  }
-
-  .chat-message-info {
-    font-size: 12px;
+    color: white;
+    font-size: 15px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    background-color: #000000aa;
+    filter: drop-shadow(4px 4px 4px red);
   }
 
   .new-message {
-    position: absolute;
+    position: fixed;
+    bottom: 0px;
+    padding-bottom: 30px;
     padding-left: 10px;
   }
 
   .new-message input {
-    background: #ffffffdd;
-    font-size: 12px;
+    background: #ffffff;
+    font-size: 15px;
     padding: 5px;
     height: 20px;
+    width: 300px;
   }
 
   .chat-toolbar {
-    background-color: #ffffffdd;
+    background-color: #000;
     position: fixed;
     bottom: 0px;
     padding-bottom: 10px;
@@ -135,39 +160,28 @@ https://dev.to/silvio/how-to-create-a-web-components-in-svelte-2g4j
 
 <svelte:window bind:scrollY bind:innerHeight />
 
-<div>
+<div on:mousemove={handleMousemove}>
   <div
     class="chat-sidebar"
     on:click={handleSidebarClick}
-    on:mousemove={handleMousemove}
     style="height: {scrollHeight}px;" />
   <div class="chat-messages" hidden={!showingMessages}>
     {#each $store as val (val.msgId)}
-      <div class="chat-message">
-        <span class="chat-message-text">
-          {val.msg}
-          <button
-            on:click|preventDefault={() => {
-              const yes = confirm('Are you sure?');
-              if (yes) store.delete(val.msgId);
-            }}>
-            delete
-          </button>
-        </span>
-        <span class="chat-message-info">
-          <span class="time">{format(val.time)}</span>
-          <span class="user">{val.user.substr(0, 5)}</span>
+      <div class="chat-message-container" style="top: {getY(val)}px;">
+        <span
+          class="chat-message"
+          style="filter: drop-shadow(4px 4px 4px {toHSL(val.user)})"
+          hidden={(innerHeight - (getY(val) - scrollY)) / innerHeight >= 0.6}>
+          {JSON.parse(val.msg)['msg']}
         </span>
       </div>
     {/each}
   </div>
-  <div
-    class="new-message"
-    style="top: {newMessageY}px;"
-    hidden={!showingMessages}>
+  <div class="new-message" hidden={!showingMessages}>
     <form method="get" autocomplete="off" on:submit|preventDefault>
       <div>
         <input
+          style="filter: drop-shadow(4px 4px 4px {toHSL($user)})"
           class="input"
           type="text"
           name="null"
