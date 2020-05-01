@@ -1,6 +1,4 @@
-# P2P web component
-
-GunDB realtime p2p chat in a Svelte web component
+# scroll.chat
 
 ## Developing
 
@@ -11,5 +9,5 @@ GunDB realtime p2p chat in a Svelte web component
 
 ## Acknowledgements
 
-- https://dev.to/silvio/how-to-create-a-web-components-in-svelte-2g4j
 - https://github.com/vnglst/svelte-gundb-chat
+- https://dev.to/silvio/how-to-create-a-web-components-in-svelte-2g4j
