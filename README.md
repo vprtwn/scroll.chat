@@ -1,5 +1,7 @@
 # scroll.chat
 
+<img src="https://raw.githubusercontent.com/benzguo/scroll.chat/master/public/screenshot_2020-05-01.png">
+
 ## Developing
 
 - `yarn build`: build to bundle.js
