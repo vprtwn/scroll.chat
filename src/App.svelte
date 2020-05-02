@@ -62,13 +62,16 @@
     }
   }
 
+  function handleNewMessageInputFocus(event) {
+    registerPresence();
+  }
+
   function getYRel() {
     return (scrollY + innerHeight - 100) / scrollHeight;
   }
 
   function getY(val) {
-    let yRel = val.yRel;
-    return yRel * scrollHeight;
+    return val.yRel * scrollHeight;
   }
 
   function toHSL(str) {
@@ -95,6 +98,23 @@
     return `hsl(${h}, ${s}%, ${l}%)`;
   }
 
+  function registerPresence() {
+    const yRel = getYRel();
+    if (yRel <= 1 && yRel > 0) {
+      let val = {
+        msg: "",
+        user: $user,
+        yRel: yRel,
+        time: 0
+      };
+      $gunStore = val;
+    }
+  }
+
+  function removePresence() {
+    gunStore.deletePresence($user);
+  }
+
   onMount(async () => {
     scrollHeight = document.documentElement.scrollHeight;
     const interval = setInterval(() => {
@@ -102,26 +122,22 @@
       if (isScrolling !== newIsScrolling) {
         isScrolling = newIsScrolling;
         if (!isScrolling) {
-          const yRel = getYRel();
-          if (yRel <= 1 && yRel > 0) {
-            let val = {
-              msg: "",
-              user: $user,
-              yRel: yRel,
-              time: 0
-            };
-            // send presence
-            $gunStore = val;
-          }
+          registerPresence();
         }
       }
       lastTickScrollY = scrollY;
     }, 200);
     document.addEventListener("visibilitychange", () => {
       if (document.visibilityState !== "visible") {
-        gunStore.deletePresence($user);
+        removePresence();
       }
     });
+    window.onresize = () => {
+      setTimeout(() => {
+        scrollHeight = document.documentElement.scrollHeight;
+        console.log(scrollHeight);
+      }, 0);
+    };
   });
 </script>
 
@@ -176,7 +192,7 @@
   .new-message {
     position: fixed;
     bottom: 0px;
-    padding-bottom: 35px;
+    padding-bottom: 2.5rem;
     padding-left: 10px;
   }
 
@@ -201,7 +217,8 @@
   .toggle-chat-button {
     background: none;
     border: none;
-    padding: 0.2rem;
+    padding-left: 0.2rem;
+    padding-top: 0.5rem;
     padding-right: 1rem;
     padding-bottom: 1rem;
     color: white;
@@ -234,11 +251,13 @@ https://dev.to/silvio/how-to-create-a-web-components-in-svelte-2g4j
     style="height: {scrollHeight}px;" />
   <div class="chat-messages" hidden={!showingMessages}>
     {#each $msgStore as val (val.msgId)}
-      <div class="chat-message-container" style="top: {getY(val)}px;">
+      <div
+        class="chat-message-container"
+        style="top: {val.yRel * scrollHeight}px;">
         <span
           class="chat-message"
           style="filter: drop-shadow(4px 4px 4px {toHSL(val.user)})"
-          hidden={(innerHeight - (getY(val) - scrollY)) / innerHeight >= 0.6}>
+          hidden={(innerHeight - (val.yRel * scrollHeight - scrollY)) / innerHeight >= 0.6}>
           {val.msg}
         </span>
       </div>
@@ -263,6 +282,7 @@ https://dev.to/silvio/how-to-create-a-web-components-in-svelte-2g4j
           bind:this={newMessageInput}
           bind:value
           on:keydown={handleKeydown}
+          on:focus={handleNewMessageInputFocus}
           placeholder="new message" />
         {#if value}
           <button class="send-button" on:click={handleSubmit}>send</button>
