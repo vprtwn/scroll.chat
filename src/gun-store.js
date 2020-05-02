@@ -1,6 +1,15 @@
 import { writable, derived } from "svelte/store";
 import Gun from "gun/gun";
 
+function removeByMsgId(array, msgId) {
+  for (let i in array) {
+    if (array[i].msgId == msgId) {
+      array.splice(i, 1);
+      break;
+    }
+  }
+}
+
 function createStore() {
   // TODO: make this async, select from a remote list of peers
   // use free heroku peers?
@@ -15,6 +24,12 @@ function createStore() {
 
   chats.map().on((val, msgId) => {
     update((state) => {
+      // delete
+      if (!val) {
+        removeByMsgId(state, msgId);
+        return state;
+      }
+
       const presenceIdx = state.findIndex((m) => m.time === 0 && m.user === val.user);
       if (val.time === 0 && presenceIdx > -1) {
         state[presenceIdx] = {
@@ -36,7 +51,7 @@ function createStore() {
           yRel: val.yRel,
         });
 
-      // no more than 100 messages for now 😥
+      // no more than 100 messages
       if (state.length > 100) state.shift();
 
       return state;
@@ -45,11 +60,12 @@ function createStore() {
 
   return {
     subscribe,
-    delete: (msgId) => {
+    deletePresence: (user) => {
+      const msgId = `${0}_${user}`;
       chats.get(msgId).put(null);
     },
     set: ({ msg, user, time, yRel }) => {
-      const msgId = `${time}_${Math.random()}`;
+      const msgId = `${time}_${user}`;
       chats.get(msgId).put({
         msg,
         user,

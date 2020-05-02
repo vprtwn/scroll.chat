@@ -57,6 +57,8 @@
       setTimeout(() => {
         newMessageInput.focus();
       }, 0);
+    } else {
+      gunStore.deletePresence($user);
     }
   }
 
@@ -95,7 +97,6 @@
 
   onMount(async () => {
     scrollHeight = document.documentElement.scrollHeight;
-    value = "";
     const interval = setInterval(() => {
       let newIsScrolling = lastTickScrollY !== scrollY;
       if (isScrolling !== newIsScrolling) {
@@ -109,7 +110,6 @@
               yRel: yRel,
               time: 0
             };
-            console.log(JSON.stringify(val));
             // send presence
             $gunStore = val;
           }
@@ -117,6 +117,11 @@
       }
       lastTickScrollY = scrollY;
     }, 200);
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState !== "visible") {
+        gunStore.deletePresence($user);
+      }
+    });
   });
 </script>
 
