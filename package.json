@@ -19,6 +19,7 @@
     "rollup-plugin-terser": "^5.1.2",
     "svelte": "^3.21.0"
   },
+  "heroku-run-build-script": false,
   "dependencies": {
     "color-hash": "^1.0.3",
     "cuid": "^2.1.8",
