@@ -1,16 +1,9 @@
-import { writable } from "svelte/store";
+import { writable, derived } from "svelte/store";
 import Gun from "gun/gun";
 
-function removeByMsgId(array, msgId) {
-  for (let i in array) {
-    if (array[i].msgId == msgId) {
-      array.splice(i, 1);
-      break;
-    }
-  }
-}
-
 function createStore() {
+  // TODO: make this async, select from a remote list of peers
+  // use free heroku peers?
   const gun = new Gun([
     "http://localhost:8765/gun",
     // "https://phrassed.com/gun",
@@ -18,12 +11,19 @@ function createStore() {
   ]);
 
   const { subscribe, update } = writable([]);
-  const chats = gun.get("test001"); // "chats" was bombed to death
+  const chats = gun.get("test004"); // "chats" was bombed to death
 
   chats.map().on((val, msgId) => {
     update((state) => {
-      if (!val) {
-        removeByMsgId(state, msgId);
+      const presenceIdx = state.findIndex((m) => m.time === 0 && m.user === val.user);
+      if (val.time === 0 && presenceIdx > -1) {
+        state[presenceIdx] = {
+          msgId,
+          msg: val.msg,
+          time: 0,
+          user: val.user,
+          yRel: val.yRel,
+        };
         return state;
       }
 
@@ -33,6 +33,7 @@ function createStore() {
           msg: val.msg,
           time: parseFloat(val.time),
           user: val.user,
+          yRel: val.yRel,
         });
 
       // no more than 100 messages for now 😥
@@ -47,16 +48,22 @@ function createStore() {
     delete: (msgId) => {
       chats.get(msgId).put(null);
     },
-    set: ({ msg, user }) => {
-      const time = new Date().getTime();
+    set: ({ msg, user, time, yRel }) => {
       const msgId = `${time}_${Math.random()}`;
       chats.get(msgId).put({
         msg,
         user,
         time,
+        yRel,
       });
     },
   };
 }
 
-export const store = createStore();
+export const gunStore = createStore();
+export const msgStore = derived(gunStore, ($store) =>
+  $store.filter((v) => parseFloat(v.time) !== 0)
+);
+export const presenceStore = derived(gunStore, ($store) =>
+  $store.filter((v) => parseFloat(v.time) === 0)
+);

@@ -1,13 +1,17 @@
 <script>
   import { user } from "./user-store.js";
-  import { store } from "./gun-store";
+  import { gunStore, msgStore, presenceStore } from "./gun-store";
   import { format } from "timeago.js";
   import { onMount } from "svelte";
 
   let mouseY = 0;
   let scrollY = 0;
+  let lastTickScrollY = 0;
+  let isScrolling = false;
   let innerHeight = 0;
   let scrollHeight = 1;
+  // area of screen to display chats (ratio of screen height)
+  let chatScrollArea = 0.6;
   let value;
   let showingMessages = true;
   let newMessageInput;
@@ -34,11 +38,12 @@
 
   function handleSubmit() {
     if (!value) return;
-    const message = JSON.stringify({
+    $gunStore = {
       msg: value,
-      yRel: (scrollY + innerHeight - 100) / scrollHeight
-    });
-    $store = { msg: message, user: $user };
+      user: $user,
+      time: new Date().getTime(),
+      yRel: getYRel()
+    };
     value = "";
   }
 
@@ -55,8 +60,12 @@
     }
   }
 
+  function getYRel() {
+    return (scrollY + innerHeight - 100) / scrollHeight;
+  }
+
   function getY(val) {
-    let yRel = JSON.parse(val.msg)["yRel"];
+    let yRel = val.yRel;
     return yRel * scrollHeight;
   }
 
@@ -86,12 +95,28 @@
 
   onMount(async () => {
     scrollHeight = document.documentElement.scrollHeight;
-    const message = JSON.stringify({
-      msg: "",
-      yRel: -1
-    });
-    $store = { msg: message, user: $user };
     value = "";
+    const interval = setInterval(() => {
+      let newIsScrolling = lastTickScrollY !== scrollY;
+      if (isScrolling !== newIsScrolling) {
+        isScrolling = newIsScrolling;
+        if (!isScrolling) {
+          const yRel = getYRel();
+          if (yRel <= 1 && yRel > 0) {
+            let val = {
+              msg: "",
+              user: $user,
+              yRel: yRel,
+              time: 0
+            };
+            console.log(JSON.stringify(val));
+            // send presence
+            $gunStore = val;
+          }
+        }
+      }
+      lastTickScrollY = scrollY;
+    }, 200);
   });
 </script>
 
@@ -124,7 +149,23 @@
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
     background-color: #000000aa;
-    filter: drop-shadow(4px 4px 4px red);
+  }
+
+  .chat-presences {
+    position: absolute;
+    background-color: transparent;
+    width: auto;
+    padding-left: 0px;
+  }
+
+  .chat-presence {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    z-index: 60;
+    border: solid;
+    border-width: 1px;
+    border-color: #ffffffaa;
   }
 
   .new-message {
@@ -187,15 +228,22 @@ https://dev.to/silvio/how-to-create-a-web-components-in-svelte-2g4j
     on:click={handleSidebarClick}
     style="height: {scrollHeight}px;" />
   <div class="chat-messages" hidden={!showingMessages}>
-    {#each $store as val (val.msgId)}
+    {#each $msgStore as val (val.msgId)}
       <div class="chat-message-container" style="top: {getY(val)}px;">
         <span
           class="chat-message"
           style="filter: drop-shadow(4px 4px 4px {toHSL(val.user)})"
           hidden={(innerHeight - (getY(val) - scrollY)) / innerHeight >= 0.6}>
-          {JSON.parse(val.msg)['msg']}
+          {val.msg}
         </span>
       </div>
+    {/each}
+  </div>
+  <div class="chat-presences" hidden={!showingMessages}>
+    {#each $presenceStore as p (p.msgId)}
+      <div
+        class="chat-presence"
+        style="top: {getY(p)}px; background-color: {toHSL(p.user)};" />
     {/each}
   </div>
   <div class="new-message" hidden={!showingMessages}>
