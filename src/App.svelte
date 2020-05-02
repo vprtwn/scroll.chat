@@ -1,8 +1,8 @@
 <script>
   import { user } from "./user-store.js";
   import { gunStore, msgStore, presenceStore } from "./gun-store";
-  import { format } from "timeago.js";
   import { onMount } from "svelte";
+  import { toHSL } from "./hsl.js";
 
   let mouseY = 0;
   let scrollY = 0;
