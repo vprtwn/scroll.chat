@@ -9,7 +9,8 @@
 - `yarn build`: build to bundle.js
 - `yarn dev`: build/watch/serve
 - `yarn server`: run gundb server
-- To clear the GunDB user, run `sessionStorage.clear()` in your browser console.
+- To clear the current user & get a new one: run `sessionStorage.clear()` in the browser console.
+- To clear all data: run `localStorage.clear()` in all browsers & stop all servers
 
 ## Acknowledgements
 
