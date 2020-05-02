@@ -11,14 +11,14 @@
   let innerHeight = 0;
   let scrollHeight = 1;
   let chatScrollArea = 0.6; // screen height = 1.0
-  let value;
+  let newMessage;
   let showingMessages = true;
   let newMessageInput;
 
   function handleKeydown(e) {
     // enter
     if (e.keyCode === 13) {
-      if (!value) return;
+      if (!newMessage) return;
       e.preventDefault();
       handleSubmit();
     }
@@ -36,14 +36,14 @@
   }
 
   function handleSubmit() {
-    if (!value) return;
+    if (!newMessage) return;
     $gunStore = {
-      msg: value,
+      msg: newMessage,
       user: $user,
       time: new Date().getTime(),
       yRel: getYRel()
     };
-    value = "";
+    newMessage = "";
   }
 
   async function handleSidebarClick() {
@@ -119,7 +119,6 @@
 <style>
   .chat-sidebar {
     position: absolute;
-    /* background-color: black; */
     background-color: #000000aa;
     width: 10px;
     z-index: 40;
@@ -255,11 +254,11 @@ https://dev.to/silvio/how-to-create-a-web-components-in-svelte-2g4j
           name="null"
           maxLength="160"
           bind:this={newMessageInput}
-          bind:value
+          bind:value={newMessage}
           on:keydown={handleKeydown}
           on:focus={handleNewMessageInputFocus}
           placeholder="new message" />
-        {#if value}
+        {#if newMessage}
           <button class="send-button" on:click={handleSubmit}>send</button>
         {/if}
       </div>
