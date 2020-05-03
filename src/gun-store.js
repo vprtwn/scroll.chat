@@ -64,7 +64,25 @@ function createStore() {
       const msgId = `${0}_${user}`;
       chats.get(msgId).put(null);
     },
-    set: ({ msg, user, time, yRel }) => {
+    setPresence: ({ user, yRel }) => {
+      if (yRel <= 0 || yRel >= 1) {
+        return;
+      }
+      const time = new Date().getTime(),
+      const msgId = `${time}_${user}`;
+      let val = {
+        msg: "",
+        user: user,
+        yRel: yRel,
+        time: 0,
+      };
+      chats.get(msgId).put(val);
+    },
+    pushMessage: ({ msg, user, yRel }) => {
+      if (yRel <= 0 || yRel >= 1) {
+        return
+      }
+      const time = new Date().getTime(),
       const msgId = `${time}_${user}`;
       chats.get(msgId).put({
         msg,

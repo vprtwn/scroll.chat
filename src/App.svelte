@@ -37,12 +37,11 @@
 
   function handleSubmit() {
     if (!newMessage) return;
-    $gunStore = {
+    gunStore.pushMessage({
       msg: newMessage,
       user: $user,
-      time: new Date().getTime(),
       yRel: getYRel()
-    };
+    });
     newMessage = "";
   }
 
@@ -62,28 +61,15 @@
   }
 
   function handleNewMessageInputFocus(event) {
-    registerPresence();
+    setPresence();
   }
 
   function getYRel() {
     return (scrollY + innerHeight - 100) / scrollHeight;
   }
 
-  function getY(val) {
-    return val.yRel * scrollHeight;
-  }
-
-  function registerPresence() {
-    const yRel = getYRel();
-    if (yRel <= 1 && yRel > 0) {
-      let val = {
-        msg: "",
-        user: $user,
-        yRel: yRel,
-        time: 0
-      };
-      $gunStore = val;
-    }
+  function setPresence() {
+    gunStore.setPresence({ user: $user, yRel: getYRel() });
   }
 
   function removePresence() {
@@ -92,21 +78,25 @@
 
   onMount(async () => {
     scrollHeight = document.documentElement.scrollHeight;
+    // detect scroll stop
     const interval = setInterval(() => {
       let newIsScrolling = lastTickScrollY !== scrollY;
       if (isScrolling !== newIsScrolling) {
         isScrolling = newIsScrolling;
         if (!isScrolling) {
-          registerPresence();
+          setPresence();
         }
       }
       lastTickScrollY = scrollY;
     }, 200);
+    // detect switching window or tab
     document.addEventListener("visibilitychange", () => {
       if (document.visibilityState !== "visible") {
         removePresence();
       }
     });
+    // detect window resize
+    // BUG: widening doesn't work)
     window.onresize = () => {
       setTimeout(() => {
         scrollHeight = document.documentElement.scrollHeight;
@@ -241,7 +231,7 @@ https://dev.to/silvio/how-to-create-a-web-components-in-svelte-2g4j
     {#each $presenceStore as p (p.msgId)}
       <div
         class="chat-presence"
-        style="top: {getY(p)}px; background-color: {toHSL(p.user)};" />
+        style="top: {p.yRel * scrollHeight}px; background-color: {toHSL(p.user)};" />
     {/each}
   </div>
   <div class="new-message" hidden={!showingMessages}>
