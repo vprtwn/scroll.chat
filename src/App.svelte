@@ -4,6 +4,14 @@
   import { onMount } from "svelte";
   import { toHSL } from "./hsl.js";
 
+  // external props
+  export let theme = "dark";
+
+  // internal props
+  let blackT = "#000000aa";
+  let black = "#000000";
+  let whiteT = "#ffffffdd";
+  let white = "#ffffff";
   let mouseY = 0;
   let scrollY = 0;
   let lastTickScrollY = 0;
@@ -14,6 +22,10 @@
   let newMessage;
   let showingMessages = true;
   let newMessageInput;
+
+  function isDark(theme) {
+    return theme === "dark";
+  }
 
   function handleKeydown(e) {
     // enter
@@ -109,7 +121,7 @@
 <style>
   .chat-sidebar {
     position: absolute;
-    background-color: #000000aa;
+    background-color: var(--color-bg);
     width: 10px;
     z-index: 40;
   }
@@ -127,13 +139,13 @@
   }
 
   .chat-message {
-    color: white;
+    color: var(--color-fg);
     font-size: 15px;
     padding-left: 1rem;
     padding-right: 1rem;
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
-    background-color: #000000aa;
+    background-color: var(--color-bg);
   }
 
   .chat-presences {
@@ -150,18 +162,18 @@
     z-index: 60;
     border: solid;
     border-width: 1px;
-    border-color: #ffffffaa;
+    border-color: var(--color-bg-input);
   }
 
   .new-message {
     position: fixed;
     bottom: 0px;
-    padding-bottom: 2.5rem;
+    padding-bottom: 2.7rem;
     padding-left: 10px;
   }
 
   .new-message input {
-    background: #ffffff;
+    background: var(--color-bg-input);
     font-size: 15px;
     padding: 10px;
     height: 20px;
@@ -171,7 +183,7 @@
   }
 
   .chat-toolbar {
-    background-color: #000000aa;
+    background-color: var(--color-bg);
     position: fixed;
     margin-left: 10px;
     bottom: 0px;
@@ -185,30 +197,27 @@
     padding-top: 0.5rem;
     padding-right: 1rem;
     padding-bottom: 1rem;
-    color: white;
+    color: var(--color-fg);
     font-size: 15px;
   }
 
   .send-button {
-    background: #000000;
+    background: var(--color-fg-input);
     border: none;
     padding: 0.5rem;
-    color: white;
+    color: var(--color-bg-input);
     font-size: 15px;
   }
 </style>
 
-<!--
-By default custom elements are compiled with accessors: true, 
-which means that any props are exposed as properties of the DOM element. 
-To prevent this, add accessors={false} to svelte:options.
-https://dev.to/silvio/how-to-create-a-web-components-in-svelte-2g4j
--->
 <svelte:options tag={'scroll-chat'} />
 
 <svelte:window bind:scrollY bind:innerHeight />
 
-<div on:mousemove={handleMousemove}>
+<div
+  on:mousemove={handleMousemove}
+  style="--color-bg: {isDark(theme) ? blackT : whiteT}; --color-fg: {isDark(theme) ? white : black};
+  --color-bg-input: {white}; --color-fg-input: {black};">
   <div
     class="chat-sidebar"
     on:click={handleSidebarClick}
@@ -254,7 +263,9 @@ https://dev.to/silvio/how-to-create-a-web-components-in-svelte-2g4j
       </div>
     </form>
   </div>
-  <div class="chat-toolbar">
+  <div
+    class="chat-toolbar"
+    style="filter: drop-shadow(4px 4px 4px {toHSL($user)})">
     <button class="toggle-chat-button" on:click={toggleShowingMessages}>
       {showingMessages ? '< hide' : '> chat'}
     </button>

@@ -11,12 +11,9 @@ function removeByMsgId(array, msgId) {
 }
 
 function createStore() {
-  // TODO: make this async, select from a remote list of peers
-  // use free heroku peers?
   const gun = new Gun([
-    "http://localhost:8765/gun",
-    // "https://phrassed.com/gun",
-    // "https://gunjs.herokuapp.com/gun", // Don't use, unstable
+    // "http://localhost:8765/gun", // local development
+    "https://scroll-chat-server-1.herokuapp.com/gun",
   ]);
 
   const { subscribe, update } = writable([]);
@@ -68,7 +65,7 @@ function createStore() {
       if (yRel <= 0 || yRel >= 1) {
         return;
       }
-      const time = new Date().getTime(),
+      const time = new Date().getTime();
       const msgId = `${time}_${user}`;
       let val = {
         msg: "",
@@ -80,9 +77,9 @@ function createStore() {
     },
     pushMessage: ({ msg, user, yRel }) => {
       if (yRel <= 0 || yRel >= 1) {
-        return
+        return;
       }
-      const time = new Date().getTime(),
+      const time = new Date().getTime();
       const msgId = `${time}_${user}`;
       chats.get(msgId).put({
         msg,
