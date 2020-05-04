@@ -1,18 +1,13 @@
 {
-  "name": "scroll.chat",
-  "version": "0.1.0",
+  "name": "scroll.chat.dev",
   "description": "https://scroll.chat",
-  "type": "module",
   "author": "benzguo",
   "license": "MIT",
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "start": "sirv public",
-    "prepublish": "rollup -c"
+    "start": "sirv public"
   },
-  "main": "public/build/bundle.js",
-  "module": "public/build/bundle.js",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^11.0.0",
     "@rollup/plugin-node-resolve": "^7.0.0",

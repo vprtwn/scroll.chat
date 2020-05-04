@@ -1,8 +1,8 @@
 {
   "background_color": "#ffffff",
   "theme_color": "#333333",
-  "name": "Phrassed - Decentralized Chat",
-  "short_name": "Phrassed",
+  "name": "scroll.chat",
+  "short_name": "scroll.chat",
   "display": "standalone",
   "start_url": "/",
   "icons": [

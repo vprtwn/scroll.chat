@@ -1,0 +1,13 @@
+{
+  "name": "scroll.chat",
+  "version": "0.1.1",
+  "description": "https://scroll.chat",
+  "type": "module",
+  "author": "benzguo",
+  "license": "MIT",
+  "scripts": {
+    "prepublish": "cd .. && rollup -c"
+  },
+  "main": "bundle.js",
+  "module": "bundle.js"
+}

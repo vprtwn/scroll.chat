@@ -11,13 +11,18 @@ function removeByMsgId(array, msgId) {
 }
 
 function createStore() {
+  // https://github.com/amark/gun/wiki/volunteer.dht
   const gun = new Gun([
     // "http://localhost:8765/gun", // local development
-    "https://scroll-chat-server-1.herokuapp.com/gun",
+    "https://side.land/gun",
+    "https://www.raygun.live/gun",
+    "https://phrassed.com/gun",
   ]);
 
+  const prefix = "scroll.chat.v1";
+  const nodeName = `${prefix}^${window.location.href}`;
   const { subscribe, update } = writable([]);
-  const chats = gun.get("test004"); // "chats" was bombed to death
+  const chats = gun.get(nodeName);
 
   chats.map().on((val, msgId) => {
     update((state) => {
@@ -48,8 +53,8 @@ function createStore() {
           yRel: val.yRel,
         });
 
-      // no more than 100 messages
-      if (state.length > 100) state.shift();
+      // no more than 200 messages
+      if (state.length > 200) state.shift();
 
       return state;
     });

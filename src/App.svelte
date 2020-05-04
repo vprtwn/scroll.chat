@@ -108,11 +108,10 @@
       }
     });
     // detect window resize
-    // BUG: widening doesn't work)
+    // BUG: widening doesn't work
     window.onresize = () => {
       setTimeout(() => {
         scrollHeight = document.documentElement.scrollHeight;
-        console.log(scrollHeight);
       }, 0);
     };
   });
@@ -124,6 +123,7 @@
     background-color: var(--color-bg);
     width: 10px;
     z-index: 40;
+    padding: 0px;
   }
 
   .chat-messages {
@@ -141,6 +141,8 @@
   .chat-message {
     color: var(--color-fg);
     font-size: 15px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
     padding-left: 1rem;
     padding-right: 1rem;
     padding-top: 0.25rem;
@@ -175,6 +177,8 @@
   .new-message input {
     background: var(--color-bg-input);
     font-size: 15px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
     padding: 10px;
     height: 20px;
     width: 300px;
@@ -199,6 +203,8 @@
     padding-bottom: 1rem;
     color: var(--color-fg);
     font-size: 15px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
   }
 
   .send-button {
@@ -207,6 +213,8 @@
     padding: 0.5rem;
     color: var(--color-bg-input);
     font-size: 15px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
   }
 </style>
 

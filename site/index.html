@@ -6,7 +6,6 @@
       margin: 0;
       background-size: 40px 40px;
       background-image: radial-gradient(circle, #000000 1px, rgba(0, 0, 0, 0) 1px);
-      height: 400vh;
     }
   </style>
   <head>
@@ -16,22 +15,19 @@
     <link href="manifest.json" rel="manifest" />
     <link rel="icon" type="image/png" href="/favicon.png" />
 
-    <script src="./bundle.js"></script>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
     <!-- <script src="https://unpkg.com/scroll.chat@latest/bundle.js" /></script> -->
   </head>
 
-  <!-- <div style="position: relative;"> -->
-  <!-- <div style="position: absolute;"> -->
-  <!-- your page content -->
-  <div style="position: absolute; padding-left: 50px; width: 80vw;">
-    <iframe
-      width="500"
-      height="500"
-      src="//jsfiddle.net/benzguo/1djwqyz9/26/embedded/html,result/dark/"
-      allowfullscreen="allowfullscreen"
-      frameborder="0"
-    ></iframe>
+  <div>
+    scroll.chat
   </div>
-  <!-- </div> -->
-  <scroll-chat theme="light" />
+  <div>
+    Add a realtime chat overlay to any page
+  </div>
+  <div class="h-64"></div>
+
+  <div style="width: 100%; height: 300px;">
+    <script async src="//jsfiddle.net/benzguo/1djwqyz9/35/embed/html,result/dark/"></script>
+  </div>
 </html>
