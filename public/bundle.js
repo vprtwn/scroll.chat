@@ -3045,21 +3045,21 @@ var app = (function () {
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[32] = list[i];
+    	child_ctx[33] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[35] = list[i];
+    	child_ctx[36] = list[i];
     	return child_ctx;
     }
 
-    // (234:4) {#each $msgStore as val (val.msgId)}
+    // (240:4) {#each $msgStore as val (val.msgId)}
     function create_each_block_1(key_1, ctx) {
     	let div;
     	let span;
-    	let t0_value = /*val*/ ctx[35].msg + "";
+    	let t0_value = /*val*/ ctx[36].msg + "";
     	let t0;
     	let span_hidden_value;
     	let t1;
@@ -3073,12 +3073,12 @@ var app = (function () {
     			t0 = text(t0_value);
     			t1 = space();
     			attr_dev(span, "class", "chat-message");
-    			set_style(span, "filter", "drop-shadow(4px 4px 4px " + toHSL(/*val*/ ctx[35].user) + ")");
-    			span.hidden = span_hidden_value = (/*innerHeight*/ ctx[2] - (/*val*/ ctx[35].yRel * /*scrollHeight*/ ctx[3] - /*scrollY*/ ctx[1])) / /*innerHeight*/ ctx[2] >= 0.6;
-    			add_location(span, file, 237, 8, 5553);
+    			set_style(span, "filter", "drop-shadow(4px 4px 4px " + toHSL(/*val*/ ctx[36].user) + ")");
+    			span.hidden = span_hidden_value = (/*innerHeight*/ ctx[2] - (/*val*/ ctx[36].yRel * /*scrollHeight*/ ctx[3] - /*scrollY*/ ctx[1])) / /*innerHeight*/ ctx[2] >= 0.6;
+    			add_location(span, file, 243, 8, 5341);
     			attr_dev(div, "class", "chat-message-container");
-    			set_style(div, "top", /*val*/ ctx[35].yRel * /*scrollHeight*/ ctx[3] + "px");
-    			add_location(div, file, 234, 6, 5450);
+    			set_style(div, "top", /*val*/ ctx[36].yRel * /*scrollHeight*/ ctx[3] + "px");
+    			add_location(div, file, 240, 6, 5238);
     			this.first = div;
     		},
     		m: function mount(target, anchor) {
@@ -3088,18 +3088,18 @@ var app = (function () {
     			append_dev(div, t1);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*$msgStore*/ 256 && t0_value !== (t0_value = /*val*/ ctx[35].msg + "")) set_data_dev(t0, t0_value);
+    			if (dirty[0] & /*$msgStore*/ 512 && t0_value !== (t0_value = /*val*/ ctx[36].msg + "")) set_data_dev(t0, t0_value);
 
-    			if (dirty[0] & /*$msgStore*/ 256) {
-    				set_style(span, "filter", "drop-shadow(4px 4px 4px " + toHSL(/*val*/ ctx[35].user) + ")");
+    			if (dirty[0] & /*$msgStore*/ 512) {
+    				set_style(span, "filter", "drop-shadow(4px 4px 4px " + toHSL(/*val*/ ctx[36].user) + ")");
     			}
 
-    			if (dirty[0] & /*innerHeight, $msgStore, scrollHeight, scrollY*/ 270 && span_hidden_value !== (span_hidden_value = (/*innerHeight*/ ctx[2] - (/*val*/ ctx[35].yRel * /*scrollHeight*/ ctx[3] - /*scrollY*/ ctx[1])) / /*innerHeight*/ ctx[2] >= 0.6)) {
+    			if (dirty[0] & /*innerHeight, $msgStore, scrollHeight, scrollY*/ 526 && span_hidden_value !== (span_hidden_value = (/*innerHeight*/ ctx[2] - (/*val*/ ctx[36].yRel * /*scrollHeight*/ ctx[3] - /*scrollY*/ ctx[1])) / /*innerHeight*/ ctx[2] >= 0.6)) {
     				prop_dev(span, "hidden", span_hidden_value);
     			}
 
-    			if (dirty[0] & /*$msgStore, scrollHeight*/ 264) {
-    				set_style(div, "top", /*val*/ ctx[35].yRel * /*scrollHeight*/ ctx[3] + "px");
+    			if (dirty[0] & /*$msgStore, scrollHeight*/ 520) {
+    				set_style(div, "top", /*val*/ ctx[36].yRel * /*scrollHeight*/ ctx[3] + "px");
     			}
     		},
     		d: function destroy(detaching) {
@@ -3111,14 +3111,14 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(234:4) {#each $msgStore as val (val.msgId)}",
+    		source: "(240:4) {#each $msgStore as val (val.msgId)}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (248:4) {#each $presenceStore as p (p.msgId)}
+    // (254:4) {#each $presenceStore as p (p.msgId)}
     function create_each_block(key_1, ctx) {
     	let div;
 
@@ -3128,21 +3128,21 @@ var app = (function () {
     		c: function create() {
     			div = element("div");
     			attr_dev(div, "class", "chat-presence");
-    			set_style(div, "top", /*p*/ ctx[32].yRel * /*scrollHeight*/ ctx[3] + "px");
-    			set_style(div, "background-color", toHSL(/*p*/ ctx[32].user));
-    			add_location(div, file, 248, 6, 5927);
+    			set_style(div, "top", /*p*/ ctx[33].yRel * /*scrollHeight*/ ctx[3] + "px");
+    			set_style(div, "background-color", toHSL(/*p*/ ctx[33].user));
+    			add_location(div, file, 254, 6, 5715);
     			this.first = div;
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*$presenceStore, scrollHeight*/ 520) {
-    				set_style(div, "top", /*p*/ ctx[32].yRel * /*scrollHeight*/ ctx[3] + "px");
+    			if (dirty[0] & /*$presenceStore, scrollHeight*/ 1032) {
+    				set_style(div, "top", /*p*/ ctx[33].yRel * /*scrollHeight*/ ctx[3] + "px");
     			}
 
-    			if (dirty[0] & /*$presenceStore*/ 512) {
-    				set_style(div, "background-color", toHSL(/*p*/ ctx[32].user));
+    			if (dirty[0] & /*$presenceStore*/ 1024) {
+    				set_style(div, "background-color", toHSL(/*p*/ ctx[33].user));
     			}
     		},
     		d: function destroy(detaching) {
@@ -3154,14 +3154,14 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(248:4) {#each $presenceStore as p (p.msgId)}",
+    		source: "(254:4) {#each $presenceStore as p (p.msgId)}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (268:8) {#if newMessage}
+    // (277:8) {#if newMessage}
     function create_if_block(ctx) {
     	let button;
     	let dispose;
@@ -3171,12 +3171,12 @@ var app = (function () {
     			button = element("button");
     			button.textContent = "send";
     			attr_dev(button, "class", "send-button");
-    			add_location(button, file, 268, 10, 6609);
+    			add_location(button, file, 277, 10, 6498);
     		},
     		m: function mount(target, anchor, remount) {
     			insert_dev(target, button, anchor);
     			if (remount) dispose();
-    			dispose = listen_dev(button, "click", /*handleSubmit*/ ctx[16], false, false, false);
+    			dispose = listen_dev(button, "click", /*handleSubmit*/ ctx[17], false, false, false);
     		},
     		p: noop,
     		d: function destroy(detaching) {
@@ -3189,7 +3189,7 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(268:8) {#if newMessage}",
+    		source: "(277:8) {#if newMessage}",
     		ctx
     	});
 
@@ -3229,11 +3229,11 @@ var app = (function () {
     	let t5_value = (/*showingMessages*/ ctx[5] ? "< hide" : "> chat") + "";
     	let t5;
     	let dispose;
-    	add_render_callback(/*onwindowscroll*/ ctx[28]);
-    	add_render_callback(/*onwindowresize*/ ctx[29]);
-    	let each_value_1 = /*$msgStore*/ ctx[8];
+    	add_render_callback(/*onwindowscroll*/ ctx[29]);
+    	add_render_callback(/*onwindowresize*/ ctx[30]);
+    	let each_value_1 = /*$msgStore*/ ctx[9];
     	validate_each_argument(each_value_1);
-    	const get_key = ctx => /*val*/ ctx[35].msgId;
+    	const get_key = ctx => /*val*/ ctx[36].msgId;
     	validate_each_keys(ctx, each_value_1, get_each_context_1, get_key);
 
     	for (let i = 0; i < each_value_1.length; i += 1) {
@@ -3242,9 +3242,9 @@ var app = (function () {
     		each0_lookup.set(key, each_blocks_1[i] = create_each_block_1(key, child_ctx));
     	}
 
-    	let each_value = /*$presenceStore*/ ctx[9];
+    	let each_value = /*$presenceStore*/ ctx[10];
     	validate_each_argument(each_value);
-    	const get_key_1 = ctx => /*p*/ ctx[32].msgId;
+    	const get_key_1 = ctx => /*p*/ ctx[33].msgId;
     	validate_each_keys(ctx, each_value, get_each_context, get_key_1);
 
     	for (let i = 0; i < each_value.length; i += 1) {
@@ -3287,44 +3287,46 @@ var app = (function () {
     			this.c = noop;
     			attr_dev(div0, "class", "chat-sidebar");
     			set_style(div0, "height", /*scrollHeight*/ ctx[3] + "px");
-    			add_location(div0, file, 228, 2, 5242);
+    			add_location(div0, file, 234, 2, 5030);
     			attr_dev(div1, "class", "chat-messages");
     			div1.hidden = div1_hidden_value = !/*showingMessages*/ ctx[5];
-    			add_location(div1, file, 232, 2, 5349);
+    			add_location(div1, file, 238, 2, 5137);
     			attr_dev(div2, "class", "chat-presences");
     			div2.hidden = div2_hidden_value = !/*showingMessages*/ ctx[5];
-    			add_location(div2, file, 246, 2, 5824);
-    			set_style(input, "filter", "drop-shadow(4px 4px 4px " + toHSL(/*$user*/ ctx[7]) + ")");
+    			add_location(div2, file, 252, 2, 5612);
+    			set_style(input, "filter", "drop-shadow(4px 4px 4px " + toHSL(/*$user*/ ctx[8]) + ")");
     			attr_dev(input, "class", "input");
     			attr_dev(input, "type", "text");
     			attr_dev(input, "name", "null");
     			attr_dev(input, "maxlength", "160");
     			attr_dev(input, "placeholder", "new message");
-    			add_location(input, file, 256, 8, 6211);
-    			add_location(div3, file, 255, 6, 6197);
+    			add_location(input, file, 265, 8, 6100);
+    			add_location(div3, file, 264, 6, 6086);
     			attr_dev(form, "method", "get");
     			attr_dev(form, "autocomplete", "off");
-    			add_location(form, file, 254, 4, 6127);
+    			add_location(form, file, 263, 4, 6016);
     			attr_dev(div4, "class", "new-message");
     			div4.hidden = div4_hidden_value = !/*showingMessages*/ ctx[5];
-    			add_location(div4, file, 253, 2, 6071);
+    			set_style(div4, "position", /*newMessageY*/ ctx[7] ? "relative" : "fixed");
+    			set_style(div4, "bottom", "-" + (/*newMessageY*/ ctx[7] || "0") + "px");
+    			add_location(div4, file, 259, 2, 5859);
     			attr_dev(button, "class", "toggle-chat-button");
-    			add_location(button, file, 276, 4, 6820);
+    			add_location(button, file, 285, 4, 6709);
     			attr_dev(div5, "class", "chat-toolbar");
-    			set_style(div5, "filter", "drop-shadow(4px 4px 4px " + toHSL(/*$user*/ ctx[7]) + ")");
-    			add_location(div5, file, 273, 2, 6725);
+    			set_style(div5, "filter", "drop-shadow(4px 4px 4px " + toHSL(/*$user*/ ctx[8]) + ")");
+    			add_location(div5, file, 282, 2, 6614);
 
     			set_style(div6, "--color-bg", isDark(/*theme*/ ctx[0])
-    			? /*blackT*/ ctx[10]
-    			: /*whiteT*/ ctx[12]);
+    			? /*blackT*/ ctx[11]
+    			: /*whiteT*/ ctx[13]);
 
     			set_style(div6, "--color-fg", isDark(/*theme*/ ctx[0])
-    			? /*white*/ ctx[13]
-    			: /*black*/ ctx[11]);
+    			? /*white*/ ctx[14]
+    			: /*black*/ ctx[12]);
 
-    			set_style(div6, "--color-bg-input", /*white*/ ctx[13]);
-    			set_style(div6, "--color-fg-input", /*black*/ ctx[11]);
-    			add_location(div6, file, 224, 0, 5043);
+    			set_style(div6, "--color-bg-input", /*white*/ ctx[14]);
+    			set_style(div6, "--color-fg-input", /*black*/ ctx[12]);
+    			add_location(div6, file, 230, 0, 4831);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -3351,7 +3353,7 @@ var app = (function () {
     			append_dev(div4, form);
     			append_dev(form, div3);
     			append_dev(div3, input);
-    			/*input_binding*/ ctx[30](input);
+    			/*input_binding*/ ctx[31](input);
     			set_input_value(input, /*newMessage*/ ctx[4]);
     			append_dev(div3, t3);
     			if (if_block) if_block.m(div3, null);
@@ -3366,16 +3368,16 @@ var app = (function () {
     					scrolling = true;
     					clearTimeout(scrolling_timeout);
     					scrolling_timeout = setTimeout_1(clear_scrolling, 100);
-    					/*onwindowscroll*/ ctx[28]();
+    					/*onwindowscroll*/ ctx[29]();
     				}),
-    				listen_dev(window_1, "resize", /*onwindowresize*/ ctx[29]),
-    				listen_dev(div0, "click", /*handleSidebarClick*/ ctx[17], false, false, false),
-    				listen_dev(input, "input", /*input_input_handler*/ ctx[31]),
-    				listen_dev(input, "keydown", /*handleKeydown*/ ctx[14], false, false, false),
-    				listen_dev(input, "focus", /*handleNewMessageInputFocus*/ ctx[19], false, false, false),
-    				listen_dev(form, "submit", prevent_default(/*submit_handler*/ ctx[27]), false, true, false),
-    				listen_dev(button, "click", /*toggleShowingMessages*/ ctx[18], false, false, false),
-    				listen_dev(div6, "mousemove", /*handleMousemove*/ ctx[15], false, false, false)
+    				listen_dev(window_1, "resize", /*onwindowresize*/ ctx[30]),
+    				listen_dev(div0, "click", /*handleSidebarClick*/ ctx[18], false, false, false),
+    				listen_dev(input, "input", /*input_input_handler*/ ctx[32]),
+    				listen_dev(input, "keydown", /*handleKeydown*/ ctx[15], false, false, false),
+    				listen_dev(input, "focus", /*handleNewMessageInputFocus*/ ctx[20], false, false, false),
+    				listen_dev(form, "submit", prevent_default(/*submit_handler*/ ctx[28]), false, true, false),
+    				listen_dev(button, "click", /*toggleShowingMessages*/ ctx[19], false, false, false),
+    				listen_dev(div6, "mousemove", /*handleMousemove*/ ctx[16], false, false, false)
     			];
     		},
     		p: function update(ctx, dirty) {
@@ -3390,8 +3392,8 @@ var app = (function () {
     				set_style(div0, "height", /*scrollHeight*/ ctx[3] + "px");
     			}
 
-    			if (dirty[0] & /*$msgStore, scrollHeight, innerHeight, scrollY*/ 270) {
-    				const each_value_1 = /*$msgStore*/ ctx[8];
+    			if (dirty[0] & /*$msgStore, scrollHeight, innerHeight, scrollY*/ 526) {
+    				const each_value_1 = /*$msgStore*/ ctx[9];
     				validate_each_argument(each_value_1);
     				validate_each_keys(ctx, each_value_1, get_each_context_1, get_key);
     				each_blocks_1 = update_keyed_each(each_blocks_1, dirty, get_key, 1, ctx, each_value_1, each0_lookup, div1, destroy_block, create_each_block_1, null, get_each_context_1);
@@ -3401,8 +3403,8 @@ var app = (function () {
     				prop_dev(div1, "hidden", div1_hidden_value);
     			}
 
-    			if (dirty[0] & /*$presenceStore, scrollHeight*/ 520) {
-    				const each_value = /*$presenceStore*/ ctx[9];
+    			if (dirty[0] & /*$presenceStore, scrollHeight*/ 1032) {
+    				const each_value = /*$presenceStore*/ ctx[10];
     				validate_each_argument(each_value);
     				validate_each_keys(ctx, each_value, get_each_context, get_key_1);
     				each_blocks = update_keyed_each(each_blocks, dirty, get_key_1, 1, ctx, each_value, each1_lookup, div2, destroy_block, create_each_block, null, get_each_context);
@@ -3412,8 +3414,8 @@ var app = (function () {
     				prop_dev(div2, "hidden", div2_hidden_value);
     			}
 
-    			if (dirty[0] & /*$user*/ 128) {
-    				set_style(input, "filter", "drop-shadow(4px 4px 4px " + toHSL(/*$user*/ ctx[7]) + ")");
+    			if (dirty[0] & /*$user*/ 256) {
+    				set_style(input, "filter", "drop-shadow(4px 4px 4px " + toHSL(/*$user*/ ctx[8]) + ")");
     			}
 
     			if (dirty[0] & /*newMessage*/ 16 && input.value !== /*newMessage*/ ctx[4]) {
@@ -3437,22 +3439,30 @@ var app = (function () {
     				prop_dev(div4, "hidden", div4_hidden_value);
     			}
 
+    			if (dirty[0] & /*newMessageY*/ 128) {
+    				set_style(div4, "position", /*newMessageY*/ ctx[7] ? "relative" : "fixed");
+    			}
+
+    			if (dirty[0] & /*newMessageY*/ 128) {
+    				set_style(div4, "bottom", "-" + (/*newMessageY*/ ctx[7] || "0") + "px");
+    			}
+
     			if (dirty[0] & /*showingMessages*/ 32 && t5_value !== (t5_value = (/*showingMessages*/ ctx[5] ? "< hide" : "> chat") + "")) set_data_dev(t5, t5_value);
 
-    			if (dirty[0] & /*$user*/ 128) {
-    				set_style(div5, "filter", "drop-shadow(4px 4px 4px " + toHSL(/*$user*/ ctx[7]) + ")");
+    			if (dirty[0] & /*$user*/ 256) {
+    				set_style(div5, "filter", "drop-shadow(4px 4px 4px " + toHSL(/*$user*/ ctx[8]) + ")");
     			}
 
     			if (dirty[0] & /*theme*/ 1) {
     				set_style(div6, "--color-bg", isDark(/*theme*/ ctx[0])
-    				? /*blackT*/ ctx[10]
-    				: /*whiteT*/ ctx[12]);
+    				? /*blackT*/ ctx[11]
+    				: /*whiteT*/ ctx[13]);
     			}
 
     			if (dirty[0] & /*theme*/ 1) {
     				set_style(div6, "--color-fg", isDark(/*theme*/ ctx[0])
-    				? /*white*/ ctx[13]
-    				: /*black*/ ctx[11]);
+    				? /*white*/ ctx[14]
+    				: /*black*/ ctx[12]);
     			}
     		},
     		i: noop,
@@ -3468,7 +3478,7 @@ var app = (function () {
     				each_blocks[i].d();
     			}
 
-    			/*input_binding*/ ctx[30](null);
+    			/*input_binding*/ ctx[31](null);
     			if (if_block) if_block.d();
     			run_all(dispose);
     		}
@@ -3494,11 +3504,11 @@ var app = (function () {
     	let $msgStore;
     	let $presenceStore;
     	validate_store(user, "user");
-    	component_subscribe($$self, user, $$value => $$invalidate(7, $user = $$value));
+    	component_subscribe($$self, user, $$value => $$invalidate(8, $user = $$value));
     	validate_store(msgStore, "msgStore");
-    	component_subscribe($$self, msgStore, $$value => $$invalidate(8, $msgStore = $$value));
+    	component_subscribe($$self, msgStore, $$value => $$invalidate(9, $msgStore = $$value));
     	validate_store(presenceStore, "presenceStore");
-    	component_subscribe($$self, presenceStore, $$value => $$invalidate(9, $presenceStore = $$value));
+    	component_subscribe($$self, presenceStore, $$value => $$invalidate(10, $presenceStore = $$value));
     	let { theme = "dark" } = $$props;
 
     	// internal props
@@ -3517,6 +3527,7 @@ var app = (function () {
     	let newMessage;
     	let showingMessages = true;
     	let newMessageInput;
+    	let newMessageY = null;
 
     	function handleKeydown(e) {
     		// enter
@@ -3550,7 +3561,15 @@ var app = (function () {
     	}
 
     	async function handleSidebarClick() {
-    		toggleShowingMessages();
+    		$$invalidate(7, newMessageY = scrollY + mouseY);
+    		setPresence();
+
+    		setTimeout(
+    			() => {
+    				newMessageInput.focus();
+    			},
+    			0
+    		);
     	}
 
     	async function toggleShowingMessages() {
@@ -3573,7 +3592,11 @@ var app = (function () {
     	}
 
     	function getYRel() {
-    		return (scrollY + innerHeight - 100) / scrollHeight;
+    		if (newMessageY) {
+    			return newMessageY / scrollHeight;
+    		} else {
+    			return (scrollY + innerHeight - 100) / scrollHeight;
+    		}
     	}
 
     	function setPresence() {
@@ -3597,6 +3620,7 @@ var app = (function () {
 
     					if (!isScrolling) {
     						setPresence();
+    						$$invalidate(7, newMessageY = null);
     					}
     				}
 
@@ -3682,6 +3706,7 @@ var app = (function () {
     		newMessage,
     		showingMessages,
     		newMessageInput,
+    		newMessageY,
     		isDark,
     		handleKeydown,
     		handleMousemove,
@@ -3699,10 +3724,10 @@ var app = (function () {
 
     	$$self.$inject_state = $$props => {
     		if ("theme" in $$props) $$invalidate(0, theme = $$props.theme);
-    		if ("blackT" in $$props) $$invalidate(10, blackT = $$props.blackT);
-    		if ("black" in $$props) $$invalidate(11, black = $$props.black);
-    		if ("whiteT" in $$props) $$invalidate(12, whiteT = $$props.whiteT);
-    		if ("white" in $$props) $$invalidate(13, white = $$props.white);
+    		if ("blackT" in $$props) $$invalidate(11, blackT = $$props.blackT);
+    		if ("black" in $$props) $$invalidate(12, black = $$props.black);
+    		if ("whiteT" in $$props) $$invalidate(13, whiteT = $$props.whiteT);
+    		if ("white" in $$props) $$invalidate(14, white = $$props.white);
     		if ("mouseY" in $$props) mouseY = $$props.mouseY;
     		if ("scrollY" in $$props) $$invalidate(1, scrollY = $$props.scrollY);
     		if ("lastTickScrollY" in $$props) lastTickScrollY = $$props.lastTickScrollY;
@@ -3713,6 +3738,7 @@ var app = (function () {
     		if ("newMessage" in $$props) $$invalidate(4, newMessage = $$props.newMessage);
     		if ("showingMessages" in $$props) $$invalidate(5, showingMessages = $$props.showingMessages);
     		if ("newMessageInput" in $$props) $$invalidate(6, newMessageInput = $$props.newMessageInput);
+    		if ("newMessageY" in $$props) $$invalidate(7, newMessageY = $$props.newMessageY);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -3727,6 +3753,7 @@ var app = (function () {
     		newMessage,
     		showingMessages,
     		newMessageInput,
+    		newMessageY,
     		$user,
     		$msgStore,
     		$presenceStore,
@@ -3758,13 +3785,7 @@ var app = (function () {
     class App extends SvelteElement {
     	constructor(options) {
     		super();
-
-    		this.shadowRoot.innerHTML = `<style>.chat-sidebar{position:absolute;background-color:var(--color-bg);width:10px;z-index:40;padding:0px}.chat-messages{position:absolute;background-color:transparent;width:auto;padding-left:10px}.chat-message-container{position:absolute;width:calc(100vw - 10px)}.chat-message{color:var(--color-fg);font-size:15px;font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-      Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;padding-left:1rem;padding-right:1rem;padding-top:0.25rem;padding-bottom:0.25rem;background-color:var(--color-bg)}.chat-presences{position:absolute;background-color:transparent;width:auto;padding-left:0px}.chat-presence{position:absolute;width:8px;height:8px;z-index:60;border:solid;border-width:1px;border-color:var(--color-bg-input)}.new-message{position:fixed;bottom:0px;padding-bottom:2.7rem;padding-left:10px}.new-message input{background:var(--color-bg-input);font-size:15px;font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-      Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;padding:10px;height:20px;width:300px;border:solid;border-width:2px}.chat-toolbar{background-color:var(--color-bg);position:fixed;margin-left:10px;bottom:0px;z-index:50}.toggle-chat-button{background:none;border:none;padding-left:0.2rem;padding-top:0.5rem;padding-right:1rem;padding-bottom:1rem;color:var(--color-fg);font-size:15px;font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-      Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif}.send-button{background:var(--color-fg-input);border:none;padding:0.5rem;color:var(--color-bg-input);font-size:15px;font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-      Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif}</style>`;
-
+    		this.shadowRoot.innerHTML = `<style>.chat-sidebar{position:absolute;background-color:var(--color-bg);width:10px;z-index:40;padding:0px}.chat-messages{position:absolute;background-color:transparent;width:auto;padding-left:10px}.chat-message-container{position:absolute;width:calc(100vw - 10px)}.chat-message{color:var(--color-fg);font-size:15px;font-family:sans-serif;padding-left:1rem;padding-right:1rem;padding-top:0.25rem;padding-bottom:0.25rem;background-color:var(--color-bg)}.chat-presences{position:absolute;background-color:transparent;width:auto;padding-left:0px}.chat-presence{position:absolute;width:8px;height:8px;z-index:60;border:solid;border-width:1px;border-color:var(--color-bg-input)}.new-message{position:fixed;bottom:0px;padding-bottom:2.5rem;padding-left:10px}.new-message input{background:var(--color-bg-input);font-size:15px;font-family:sans-serif;padding:10px;height:20px;width:300px;border:solid;border-width:2px}.chat-toolbar{background-color:var(--color-bg);position:fixed;margin-left:10px;bottom:0px;z-index:50}.toggle-chat-button{background:none;border:none;padding-left:0.2rem;padding-top:0.5rem;padding-right:1rem;padding-bottom:1rem;color:var(--color-fg);font-size:15px;font-family:sans-serif}.send-button{background:var(--color-fg-input);border:none;padding:0.5rem;color:var(--color-bg-input);font-size:15px;font-family:sans-serif}</style>`;
     		init(this, { target: this.shadowRoot }, instance, create_fragment, safe_not_equal, { theme: 0 }, [-1, -1]);
 
     		if (options) {

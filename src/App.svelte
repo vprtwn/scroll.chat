@@ -22,6 +22,7 @@
   let newMessage;
   let showingMessages = true;
   let newMessageInput;
+  let newMessageY = null;
 
   function isDark(theme) {
     return theme === "dark";
@@ -58,7 +59,11 @@
   }
 
   async function handleSidebarClick() {
-    toggleShowingMessages();
+    newMessageY = scrollY + mouseY;
+    setPresence();
+    setTimeout(() => {
+      newMessageInput.focus();
+    }, 0);
   }
 
   async function toggleShowingMessages() {
@@ -77,7 +82,11 @@
   }
 
   function getYRel() {
-    return (scrollY + innerHeight - 100) / scrollHeight;
+    if (newMessageY) {
+      return newMessageY / scrollHeight;
+    } else {
+      return (scrollY + innerHeight - 100) / scrollHeight;
+    }
   }
 
   function setPresence() {
@@ -97,6 +106,7 @@
         isScrolling = newIsScrolling;
         if (!isScrolling) {
           setPresence();
+          newMessageY = null;
         }
       }
       lastTickScrollY = scrollY;
@@ -141,8 +151,7 @@
   .chat-message {
     color: var(--color-fg);
     font-size: 15px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-      Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    font-family: sans-serif;
     padding-left: 1rem;
     padding-right: 1rem;
     padding-top: 0.25rem;
@@ -170,15 +179,14 @@
   .new-message {
     position: fixed;
     bottom: 0px;
-    padding-bottom: 2.7rem;
+    padding-bottom: 2.5rem;
     padding-left: 10px;
   }
 
   .new-message input {
     background: var(--color-bg-input);
     font-size: 15px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-      Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    font-family: sans-serif;
     padding: 10px;
     height: 20px;
     width: 300px;
@@ -203,8 +211,7 @@
     padding-bottom: 1rem;
     color: var(--color-fg);
     font-size: 15px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-      Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    font-family: sans-serif;
   }
 
   .send-button {
@@ -213,8 +220,7 @@
     padding: 0.5rem;
     color: var(--color-bg-input);
     font-size: 15px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-      Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    font-family: sans-serif;
   }
 </style>
 
@@ -251,7 +257,10 @@
         style="top: {p.yRel * scrollHeight}px; background-color: {toHSL(p.user)};" />
     {/each}
   </div>
-  <div class="new-message" hidden={!showingMessages}>
+  <div
+    class="new-message"
+    hidden={!showingMessages}
+    style="position: {newMessageY ? 'relative' : 'fixed'}; bottom: -{newMessageY || '0'}px;">
     <form method="get" autocomplete="off" on:submit|preventDefault>
       <div>
         <input
