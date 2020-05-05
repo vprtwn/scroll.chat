@@ -2930,7 +2930,7 @@ var app = (function () {
         "https://phrassed.com/gun",
       ]);
 
-      const prefix = "scroll.chat.0.0.1";
+      const prefix = "scroll.chat.0.0.2";
       const nodeName = `${prefix}^${window.location.href}`;
       const { subscribe, update } = writable([]);
       const chats = gun$1.get(nodeName);
@@ -3059,21 +3059,21 @@ var app = (function () {
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[33] = list[i];
+    	child_ctx[34] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[36] = list[i];
+    	child_ctx[37] = list[i];
     	return child_ctx;
     }
 
-    // (240:4) {#each $msgStore as val (val.msgId)}
+    // (241:4) {#each $msgStore as val (val.msgId)}
     function create_each_block_1(key_1, ctx) {
     	let div;
     	let span;
-    	let t0_value = /*val*/ ctx[36].msg + "";
+    	let t0_value = /*val*/ ctx[37].msg + "";
     	let t0;
     	let t1;
 
@@ -3086,12 +3086,12 @@ var app = (function () {
     			t0 = text(t0_value);
     			t1 = space();
     			attr_dev(span, "class", "chat-message");
-    			set_style(span, "filter", "drop-shadow(4px 4px 4px " + toHSL(/*val*/ ctx[36].user) + ")");
+    			set_style(span, "filter", "drop-shadow(4px 4px 4px " + toHSL(/*val*/ ctx[37].user) + ")");
     			set_style(span, "will-change", "filter");
-    			add_location(span, file, 244, 8, 5440);
+    			add_location(span, file, 245, 8, 5498);
     			attr_dev(div, "class", "chat-message-container");
-    			set_style(div, "top", /*val*/ ctx[36].yRel * /*scrollHeight*/ ctx[3] + "px");
-    			add_location(div, file, 240, 6, 5238);
+    			set_style(div, "top", /*val*/ ctx[37].yRel * /*scrollHeight*/ ctx[3] + "px");
+    			add_location(div, file, 241, 6, 5296);
     			this.first = div;
     		},
     		m: function mount(target, anchor) {
@@ -3101,14 +3101,14 @@ var app = (function () {
     			append_dev(div, t1);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*$msgStore*/ 512 && t0_value !== (t0_value = /*val*/ ctx[36].msg + "")) set_data_dev(t0, t0_value);
+    			if (dirty[0] & /*$msgStore*/ 512 && t0_value !== (t0_value = /*val*/ ctx[37].msg + "")) set_data_dev(t0, t0_value);
 
     			if (dirty[0] & /*$msgStore*/ 512) {
-    				set_style(span, "filter", "drop-shadow(4px 4px 4px " + toHSL(/*val*/ ctx[36].user) + ")");
+    				set_style(span, "filter", "drop-shadow(4px 4px 4px " + toHSL(/*val*/ ctx[37].user) + ")");
     			}
 
     			if (dirty[0] & /*$msgStore, scrollHeight*/ 520) {
-    				set_style(div, "top", /*val*/ ctx[36].yRel * /*scrollHeight*/ ctx[3] + "px");
+    				set_style(div, "top", /*val*/ ctx[37].yRel * /*scrollHeight*/ ctx[3] + "px");
     			}
     		},
     		d: function destroy(detaching) {
@@ -3120,14 +3120,14 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(240:4) {#each $msgStore as val (val.msgId)}",
+    		source: "(241:4) {#each $msgStore as val (val.msgId)}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (255:4) {#each $presenceStore as p (p.msgId)}
+    // (256:4) {#each $presenceStore as p (p.msgId)}
     function create_each_block(key_1, ctx) {
     	let div;
 
@@ -3137,9 +3137,9 @@ var app = (function () {
     		c: function create() {
     			div = element("div");
     			attr_dev(div, "class", "chat-presence");
-    			set_style(div, "top", /*p*/ ctx[33].yRel * /*scrollHeight*/ ctx[3] + "px");
-    			set_style(div, "background-color", toHSL(/*p*/ ctx[33].user));
-    			add_location(div, file, 255, 6, 5754);
+    			set_style(div, "top", /*p*/ ctx[34].yRel * /*scrollHeight*/ ctx[3] + "px");
+    			set_style(div, "background-color", toHSL(/*p*/ ctx[34].user));
+    			add_location(div, file, 256, 6, 5786);
     			this.first = div;
     		},
     		m: function mount(target, anchor) {
@@ -3147,11 +3147,11 @@ var app = (function () {
     		},
     		p: function update(ctx, dirty) {
     			if (dirty[0] & /*$presenceStore, scrollHeight*/ 1032) {
-    				set_style(div, "top", /*p*/ ctx[33].yRel * /*scrollHeight*/ ctx[3] + "px");
+    				set_style(div, "top", /*p*/ ctx[34].yRel * /*scrollHeight*/ ctx[3] + "px");
     			}
 
     			if (dirty[0] & /*$presenceStore*/ 1024) {
-    				set_style(div, "background-color", toHSL(/*p*/ ctx[33].user));
+    				set_style(div, "background-color", toHSL(/*p*/ ctx[34].user));
     			}
     		},
     		d: function destroy(detaching) {
@@ -3163,14 +3163,14 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(255:4) {#each $presenceStore as p (p.msgId)}",
+    		source: "(256:4) {#each $presenceStore as p (p.msgId)}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (278:8) {#if newMessage}
+    // (279:8) {#if newMessage}
     function create_if_block(ctx) {
     	let button;
     	let dispose;
@@ -3180,7 +3180,7 @@ var app = (function () {
     			button = element("button");
     			button.textContent = "send";
     			attr_dev(button, "class", "send-button");
-    			add_location(button, file, 278, 10, 6537);
+    			add_location(button, file, 279, 10, 6569);
     		},
     		m: function mount(target, anchor, remount) {
     			insert_dev(target, button, anchor);
@@ -3198,7 +3198,7 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(278:8) {#if newMessage}",
+    		source: "(279:8) {#if newMessage}",
     		ctx
     	});
 
@@ -3224,7 +3224,6 @@ var app = (function () {
     	let div2;
     	let each_blocks = [];
     	let each1_lookup = new Map();
-    	let div2_hidden_value;
     	let t2;
     	let div4;
     	let form;
@@ -3238,11 +3237,11 @@ var app = (function () {
     	let t5_value = (/*showingMessages*/ ctx[5] ? "< hide" : "> chat") + "";
     	let t5;
     	let dispose;
-    	add_render_callback(/*onwindowscroll*/ ctx[29]);
-    	add_render_callback(/*onwindowresize*/ ctx[30]);
+    	add_render_callback(/*onwindowscroll*/ ctx[30]);
+    	add_render_callback(/*onwindowresize*/ ctx[31]);
     	let each_value_1 = /*$msgStore*/ ctx[9];
     	validate_each_argument(each_value_1);
-    	const get_key = ctx => /*val*/ ctx[36].msgId;
+    	const get_key = ctx => /*val*/ ctx[37].msgId;
     	validate_each_keys(ctx, each_value_1, get_each_context_1, get_key);
 
     	for (let i = 0; i < each_value_1.length; i += 1) {
@@ -3253,7 +3252,7 @@ var app = (function () {
 
     	let each_value = /*$presenceStore*/ ctx[10];
     	validate_each_argument(each_value);
-    	const get_key_1 = ctx => /*p*/ ctx[33].msgId;
+    	const get_key_1 = ctx => /*p*/ ctx[34].msgId;
     	validate_each_keys(ctx, each_value, get_each_context, get_key_1);
 
     	for (let i = 0; i < each_value.length; i += 1) {
@@ -3296,34 +3295,33 @@ var app = (function () {
     			this.c = noop;
     			attr_dev(div0, "class", "chat-sidebar");
     			set_style(div0, "height", /*scrollHeight*/ ctx[3] + "px");
-    			add_location(div0, file, 234, 2, 5030);
+    			add_location(div0, file, 235, 2, 5088);
     			attr_dev(div1, "class", "chat-messages");
     			div1.hidden = div1_hidden_value = !/*showingMessages*/ ctx[5];
-    			add_location(div1, file, 238, 2, 5137);
+    			add_location(div1, file, 239, 2, 5195);
     			attr_dev(div2, "class", "chat-presences");
-    			div2.hidden = div2_hidden_value = !/*showingMessages*/ ctx[5];
-    			add_location(div2, file, 253, 2, 5651);
+    			add_location(div2, file, 254, 2, 5709);
     			set_style(input, "filter", "drop-shadow(4px 4px 4px " + toHSL(/*$user*/ ctx[8]) + ")");
     			attr_dev(input, "class", "input");
     			attr_dev(input, "type", "text");
     			attr_dev(input, "name", "null");
     			attr_dev(input, "maxlength", "160");
     			attr_dev(input, "placeholder", "new message");
-    			add_location(input, file, 266, 8, 6139);
-    			add_location(div3, file, 265, 6, 6125);
+    			add_location(input, file, 267, 8, 6171);
+    			add_location(div3, file, 266, 6, 6157);
     			attr_dev(form, "method", "get");
     			attr_dev(form, "autocomplete", "off");
-    			add_location(form, file, 264, 4, 6055);
+    			add_location(form, file, 265, 4, 6087);
     			attr_dev(div4, "class", "new-message");
     			div4.hidden = div4_hidden_value = !/*showingMessages*/ ctx[5];
     			set_style(div4, "position", /*newMessageY*/ ctx[7] ? "relative" : "fixed");
     			set_style(div4, "bottom", "-" + (/*newMessageY*/ ctx[7] || "0") + "px");
-    			add_location(div4, file, 260, 2, 5898);
+    			add_location(div4, file, 261, 2, 5930);
     			attr_dev(button, "class", "toggle-chat-button");
-    			add_location(button, file, 286, 4, 6748);
+    			add_location(button, file, 287, 4, 6780);
     			attr_dev(div5, "class", "chat-toolbar");
     			set_style(div5, "filter", "drop-shadow(4px 4px 4px " + toHSL(/*$user*/ ctx[8]) + ")");
-    			add_location(div5, file, 283, 2, 6653);
+    			add_location(div5, file, 284, 2, 6685);
 
     			set_style(div6, "--color-bg", isDark(/*theme*/ ctx[0])
     			? /*blackT*/ ctx[11]
@@ -3335,7 +3333,7 @@ var app = (function () {
 
     			set_style(div6, "--color-bg-input", /*white*/ ctx[14]);
     			set_style(div6, "--color-fg-input", /*black*/ ctx[12]);
-    			add_location(div6, file, 230, 0, 4831);
+    			add_location(div6, file, 231, 0, 4889);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -3362,7 +3360,7 @@ var app = (function () {
     			append_dev(div4, form);
     			append_dev(form, div3);
     			append_dev(div3, input);
-    			/*input_binding*/ ctx[31](input);
+    			/*input_binding*/ ctx[32](input);
     			set_input_value(input, /*newMessage*/ ctx[4]);
     			append_dev(div3, t3);
     			if (if_block) if_block.m(div3, null);
@@ -3377,14 +3375,14 @@ var app = (function () {
     					scrolling = true;
     					clearTimeout(scrolling_timeout);
     					scrolling_timeout = setTimeout_1(clear_scrolling, 100);
-    					/*onwindowscroll*/ ctx[29]();
+    					/*onwindowscroll*/ ctx[30]();
     				}),
-    				listen_dev(window_1, "resize", /*onwindowresize*/ ctx[30]),
+    				listen_dev(window_1, "resize", /*onwindowresize*/ ctx[31]),
     				listen_dev(div0, "click", /*handleSidebarClick*/ ctx[18], false, false, false),
-    				listen_dev(input, "input", /*input_input_handler*/ ctx[32]),
+    				listen_dev(input, "input", /*input_input_handler*/ ctx[33]),
     				listen_dev(input, "keydown", /*handleKeydown*/ ctx[15], false, false, false),
     				listen_dev(input, "focus", /*handleNewMessageInputFocus*/ ctx[20], false, false, false),
-    				listen_dev(form, "submit", prevent_default(/*submit_handler*/ ctx[28]), false, true, false),
+    				listen_dev(form, "submit", prevent_default(/*submit_handler*/ ctx[29]), false, true, false),
     				listen_dev(button, "click", /*toggleShowingMessages*/ ctx[19], false, false, false),
     				listen_dev(div6, "mousemove", /*handleMousemove*/ ctx[16], false, false, false)
     			];
@@ -3417,10 +3415,6 @@ var app = (function () {
     				validate_each_argument(each_value);
     				validate_each_keys(ctx, each_value, get_each_context, get_key_1);
     				each_blocks = update_keyed_each(each_blocks, dirty, get_key_1, 1, ctx, each_value, each1_lookup, div2, destroy_block, create_each_block, null, get_each_context);
-    			}
-
-    			if (dirty[0] & /*showingMessages*/ 32 && div2_hidden_value !== (div2_hidden_value = !/*showingMessages*/ ctx[5])) {
-    				prop_dev(div2, "hidden", div2_hidden_value);
     			}
 
     			if (dirty[0] & /*$user*/ 256) {
@@ -3487,7 +3481,7 @@ var app = (function () {
     				each_blocks[i].d();
     			}
 
-    			/*input_binding*/ ctx[31](null);
+    			/*input_binding*/ ctx[32](null);
     			if (if_block) if_block.d();
     			run_all(dispose);
     		}
@@ -3518,7 +3512,8 @@ var app = (function () {
     	component_subscribe($$self, msgStore, $$value => $$invalidate(9, $msgStore = $$value));
     	validate_store(presenceStore, "presenceStore");
     	component_subscribe($$self, presenceStore, $$value => $$invalidate(10, $presenceStore = $$value));
-    	let { theme = "dark" } = $$props;
+    	let { theme = "light" } = $$props; // dark
+    	let { chat = "open" } = $$props; // closed
 
     	// internal props
     	let blackT = "#000000aa";
@@ -3534,7 +3529,7 @@ var app = (function () {
     	let scrollHeight = 1;
     	let chatScrollArea = 0.6; // screen height = 1.0
     	let newMessage;
-    	let showingMessages = true;
+    	let showingMessages = chat === "open";
     	let newMessageInput;
     	let newMessageY = null;
 
@@ -3657,7 +3652,7 @@ var app = (function () {
     		};
     	});
 
-    	const writable_props = ["theme"];
+    	const writable_props = ["theme", "chat"];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<scroll-chat> was created with unknown prop '${key}'`);
@@ -3691,6 +3686,7 @@ var app = (function () {
 
     	$$self.$set = $$props => {
     		if ("theme" in $$props) $$invalidate(0, theme = $$props.theme);
+    		if ("chat" in $$props) $$invalidate(21, chat = $$props.chat);
     	};
 
     	$$self.$capture_state = () => ({
@@ -3701,6 +3697,7 @@ var app = (function () {
     		onMount,
     		toHSL,
     		theme,
+    		chat,
     		blackT,
     		black,
     		whiteT,
@@ -3733,6 +3730,7 @@ var app = (function () {
 
     	$$self.$inject_state = $$props => {
     		if ("theme" in $$props) $$invalidate(0, theme = $$props.theme);
+    		if ("chat" in $$props) $$invalidate(21, chat = $$props.chat);
     		if ("blackT" in $$props) $$invalidate(11, blackT = $$props.blackT);
     		if ("black" in $$props) $$invalidate(12, black = $$props.black);
     		if ("whiteT" in $$props) $$invalidate(13, whiteT = $$props.whiteT);
@@ -3776,6 +3774,7 @@ var app = (function () {
     		handleSidebarClick,
     		toggleShowingMessages,
     		handleNewMessageInputFocus,
+    		chat,
     		mouseY,
     		lastTickScrollY,
     		isScrolling,
@@ -3795,7 +3794,7 @@ var app = (function () {
     	constructor(options) {
     		super();
     		this.shadowRoot.innerHTML = `<style>.chat-sidebar{position:absolute;background-color:var(--color-bg);width:10px;z-index:40;padding:0px}.chat-messages{position:absolute;background-color:transparent;width:auto;padding-left:10px}.chat-message-container{position:absolute;width:calc(100vw - 10px)}.chat-message{color:var(--color-fg);font-size:15px;font-family:sans-serif;padding-left:1rem;padding-right:1rem;padding-top:0.25rem;padding-bottom:0.25rem;background-color:var(--color-bg)}.chat-presences{position:absolute;background-color:transparent;width:auto;padding-left:0px}.chat-presence{position:absolute;width:8px;height:8px;z-index:60;border:solid;border-width:1px;border-color:var(--color-bg-input)}.new-message{position:fixed;bottom:0px;padding-bottom:45px;padding-left:10px}.new-message input{background:var(--color-bg-input);font-size:15px;font-family:sans-serif;padding:10px;height:20px;width:300px;border:solid;border-width:2px}.chat-toolbar{background-color:var(--color-bg);position:fixed;margin-left:10px;bottom:0px;z-index:50}.toggle-chat-button{background:none;border:none;padding-left:5px;padding-top:10px;padding-right:10px;padding-bottom:20px;color:var(--color-fg);font-size:15px;font-family:sans-serif}.send-button{background:var(--color-fg-input);border:none;padding:0.5rem;color:var(--color-bg-input);font-size:15px;font-family:sans-serif}</style>`;
-    		init(this, { target: this.shadowRoot }, instance, create_fragment, safe_not_equal, { theme: 0 }, [-1, -1]);
+    		init(this, { target: this.shadowRoot }, instance, create_fragment, safe_not_equal, { theme: 0, chat: 21 }, [-1, -1]);
 
     		if (options) {
     			if (options.target) {
@@ -3810,7 +3809,7 @@ var app = (function () {
     	}
 
     	static get observedAttributes() {
-    		return ["theme"];
+    		return ["theme", "chat"];
     	}
 
     	get theme() {
@@ -3819,6 +3818,15 @@ var app = (function () {
 
     	set theme(theme) {
     		this.$set({ theme });
+    		flush();
+    	}
+
+    	get chat() {
+    		return this.$$.ctx[21];
+    	}
+
+    	set chat(chat) {
+    		this.$set({ chat });
     		flush();
     	}
     }

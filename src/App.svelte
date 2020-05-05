@@ -5,7 +5,8 @@
   import { toHSL } from "./hsl.js";
 
   // external props
-  export let theme = "dark";
+  export let theme = "light"; // dark
+  export let chat = "open"; // closed
 
   // internal props
   let blackT = "#000000aa";
@@ -20,7 +21,7 @@
   let scrollHeight = 1;
   let chatScrollArea = 0.6; // screen height = 1.0
   let newMessage;
-  let showingMessages = true;
+  let showingMessages = chat === "open";
   let newMessageInput;
   let newMessageY = null;
 
@@ -251,7 +252,7 @@
       </div>
     {/each}
   </div>
-  <div class="chat-presences" hidden={!showingMessages}>
+  <div class="chat-presences">
     {#each $presenceStore as p (p.msgId)}
       <div
         class="chat-presence"

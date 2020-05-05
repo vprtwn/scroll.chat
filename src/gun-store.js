@@ -20,7 +20,7 @@ function createStore() {
     "https://phrassed.com/gun",
   ]);
 
-  const prefix = "scroll.chat.0.0.1";
+  const prefix = "scroll.chat.0.0.2";
   const nodeName = `${prefix}^${window.location.href}`;
   const { subscribe, update } = writable([]);
   const chats = gun.get(nodeName);
