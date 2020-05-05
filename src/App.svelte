@@ -83,9 +83,9 @@
 
   function getYRel() {
     if (newMessageY) {
-      return newMessageY / scrollHeight;
+      return (newMessageY - 20) / scrollHeight;
     } else {
-      return (scrollY + innerHeight - 100) / scrollHeight;
+      return (scrollY + innerHeight - 110) / scrollHeight;
     }
   }
 
@@ -179,7 +179,7 @@
   .new-message {
     position: fixed;
     bottom: 0px;
-    padding-bottom: 2.5rem;
+    padding-bottom: 45px;
     padding-left: 10px;
   }
 
@@ -243,7 +243,8 @@
         style="top: {val.yRel * scrollHeight}px;">
         <span
           class="chat-message"
-          style="filter: drop-shadow(4px 4px 4px {toHSL(val.user)})"
+          style="filter: drop-shadow(4px 4px 4px {toHSL(val.user)});
+          will-change: filter;"
           hidden={(innerHeight - (val.yRel * scrollHeight - scrollY)) / innerHeight >= 0.6}>
           {val.msg}
         </span>

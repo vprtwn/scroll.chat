@@ -2921,6 +2921,7 @@ var app = (function () {
     }
 
     function createStore() {
+      // community peers:
       // https://github.com/amark/gun/wiki/volunteer.dht
       const gun$1 = new gun([
         // "http://localhost:8765/gun", // local development
@@ -2929,7 +2930,7 @@ var app = (function () {
         "https://phrassed.com/gun",
       ]);
 
-      const prefix = "scroll.chat.v1";
+      const prefix = "scroll.chat.0.0.1";
       const nodeName = `${prefix}^${window.location.href}`;
       const { subscribe, update } = writable([]);
       const chats = gun$1.get(nodeName);
@@ -2942,26 +2943,39 @@ var app = (function () {
             return state;
           }
 
-          const presenceIdx = state.findIndex((m) => m.time === 0 && m.user === val.user);
-          if (val.time === 0 && presenceIdx > -1) {
-            state[presenceIdx] = {
-              msgId,
-              msg: val.msg,
-              time: 0,
-              user: val.user,
-              yRel: val.yRel,
-            };
-            return state;
+          // filter presences older than 1 min
+          const now = new Date();
+          state = state.filter(
+            (v) => v.type === "msg" || (v.type === "pres" && now - v.time < 60 * 1000)
+          );
+
+          if (val.type === "pres") {
+            // 1 presence per user
+            const presenceIdx = state.findIndex((v) => v.type === "pres" && v.user === val.user);
+            if (presenceIdx > -1) {
+              const time = new Date().getTime();
+              state[presenceIdx] = {
+                msgId,
+                msg: val.msg,
+                time: time,
+                user: val.user,
+                yRel: val.yRel,
+                type: "pres",
+              };
+              return state;
+            }
           }
 
-          if (val)
+          if (val) {
             state.push({
               msgId,
               msg: val.msg,
               time: parseFloat(val.time),
               user: val.user,
               yRel: val.yRel,
+              type: val.msg.length > 0 ? "msg" : "pres",
             });
+          }
 
           // no more than 200 messages
           if (state.length > 200) state.shift();
@@ -2986,7 +3000,8 @@ var app = (function () {
             msg: "",
             user: user,
             yRel: yRel,
-            time: 0,
+            time: time,
+            type: "pres",
           };
           chats.get(msgId).put(val);
         },
@@ -2996,23 +3011,22 @@ var app = (function () {
           }
           const time = new Date().getTime();
           const msgId = `${time}_${user}`;
-          chats.get(msgId).put({
-            msg,
-            user,
-            time,
-            yRel,
-          });
+          const val = {
+            msg: msg,
+            user: user,
+            yRel: yRel,
+            time: time,
+            type: "msg",
+          };
+          console.log(val);
+          chats.get(msgId).put(val);
         },
       };
     }
 
     const gunStore = createStore();
-    const msgStore = derived(gunStore, ($store) =>
-      $store.filter((v) => parseFloat(v.time) !== 0)
-    );
-    const presenceStore = derived(gunStore, ($store) =>
-      $store.filter((v) => parseFloat(v.time) === 0)
-    );
+    const msgStore = derived(gunStore, ($store) => $store.filter((v) => v.type === "msg"));
+    const presenceStore = derived(gunStore, ($store) => $store.filter((v) => v.type === "pres"));
 
     const toHSL = (str) => {
       if (!str) return;
@@ -3074,11 +3088,12 @@ var app = (function () {
     			t1 = space();
     			attr_dev(span, "class", "chat-message");
     			set_style(span, "filter", "drop-shadow(4px 4px 4px " + toHSL(/*val*/ ctx[36].user) + ")");
+    			set_style(span, "will-change", "filter");
     			span.hidden = span_hidden_value = (/*innerHeight*/ ctx[2] - (/*val*/ ctx[36].yRel * /*scrollHeight*/ ctx[3] - /*scrollY*/ ctx[1])) / /*innerHeight*/ ctx[2] >= 0.6;
-    			add_location(span, file, 243, 8, 5341);
+    			add_location(span, file, 243, 8, 5346);
     			attr_dev(div, "class", "chat-message-container");
     			set_style(div, "top", /*val*/ ctx[36].yRel * /*scrollHeight*/ ctx[3] + "px");
-    			add_location(div, file, 240, 6, 5238);
+    			add_location(div, file, 240, 6, 5243);
     			this.first = div;
     		},
     		m: function mount(target, anchor) {
@@ -3118,7 +3133,7 @@ var app = (function () {
     	return block;
     }
 
-    // (254:4) {#each $presenceStore as p (p.msgId)}
+    // (255:4) {#each $presenceStore as p (p.msgId)}
     function create_each_block(key_1, ctx) {
     	let div;
 
@@ -3130,7 +3145,7 @@ var app = (function () {
     			attr_dev(div, "class", "chat-presence");
     			set_style(div, "top", /*p*/ ctx[33].yRel * /*scrollHeight*/ ctx[3] + "px");
     			set_style(div, "background-color", toHSL(/*p*/ ctx[33].user));
-    			add_location(div, file, 254, 6, 5715);
+    			add_location(div, file, 255, 6, 5752);
     			this.first = div;
     		},
     		m: function mount(target, anchor) {
@@ -3154,14 +3169,14 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(254:4) {#each $presenceStore as p (p.msgId)}",
+    		source: "(255:4) {#each $presenceStore as p (p.msgId)}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (277:8) {#if newMessage}
+    // (278:8) {#if newMessage}
     function create_if_block(ctx) {
     	let button;
     	let dispose;
@@ -3171,7 +3186,7 @@ var app = (function () {
     			button = element("button");
     			button.textContent = "send";
     			attr_dev(button, "class", "send-button");
-    			add_location(button, file, 277, 10, 6498);
+    			add_location(button, file, 278, 10, 6535);
     		},
     		m: function mount(target, anchor, remount) {
     			insert_dev(target, button, anchor);
@@ -3189,7 +3204,7 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(277:8) {#if newMessage}",
+    		source: "(278:8) {#if newMessage}",
     		ctx
     	});
 
@@ -3287,34 +3302,34 @@ var app = (function () {
     			this.c = noop;
     			attr_dev(div0, "class", "chat-sidebar");
     			set_style(div0, "height", /*scrollHeight*/ ctx[3] + "px");
-    			add_location(div0, file, 234, 2, 5030);
+    			add_location(div0, file, 234, 2, 5035);
     			attr_dev(div1, "class", "chat-messages");
     			div1.hidden = div1_hidden_value = !/*showingMessages*/ ctx[5];
-    			add_location(div1, file, 238, 2, 5137);
+    			add_location(div1, file, 238, 2, 5142);
     			attr_dev(div2, "class", "chat-presences");
     			div2.hidden = div2_hidden_value = !/*showingMessages*/ ctx[5];
-    			add_location(div2, file, 252, 2, 5612);
+    			add_location(div2, file, 253, 2, 5649);
     			set_style(input, "filter", "drop-shadow(4px 4px 4px " + toHSL(/*$user*/ ctx[8]) + ")");
     			attr_dev(input, "class", "input");
     			attr_dev(input, "type", "text");
     			attr_dev(input, "name", "null");
     			attr_dev(input, "maxlength", "160");
     			attr_dev(input, "placeholder", "new message");
-    			add_location(input, file, 265, 8, 6100);
-    			add_location(div3, file, 264, 6, 6086);
+    			add_location(input, file, 266, 8, 6137);
+    			add_location(div3, file, 265, 6, 6123);
     			attr_dev(form, "method", "get");
     			attr_dev(form, "autocomplete", "off");
-    			add_location(form, file, 263, 4, 6016);
+    			add_location(form, file, 264, 4, 6053);
     			attr_dev(div4, "class", "new-message");
     			div4.hidden = div4_hidden_value = !/*showingMessages*/ ctx[5];
     			set_style(div4, "position", /*newMessageY*/ ctx[7] ? "relative" : "fixed");
     			set_style(div4, "bottom", "-" + (/*newMessageY*/ ctx[7] || "0") + "px");
-    			add_location(div4, file, 259, 2, 5859);
+    			add_location(div4, file, 260, 2, 5896);
     			attr_dev(button, "class", "toggle-chat-button");
-    			add_location(button, file, 285, 4, 6709);
+    			add_location(button, file, 286, 4, 6746);
     			attr_dev(div5, "class", "chat-toolbar");
     			set_style(div5, "filter", "drop-shadow(4px 4px 4px " + toHSL(/*$user*/ ctx[8]) + ")");
-    			add_location(div5, file, 282, 2, 6614);
+    			add_location(div5, file, 283, 2, 6651);
 
     			set_style(div6, "--color-bg", isDark(/*theme*/ ctx[0])
     			? /*blackT*/ ctx[11]
@@ -3326,7 +3341,7 @@ var app = (function () {
 
     			set_style(div6, "--color-bg-input", /*white*/ ctx[14]);
     			set_style(div6, "--color-fg-input", /*black*/ ctx[12]);
-    			add_location(div6, file, 230, 0, 4831);
+    			add_location(div6, file, 230, 0, 4836);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -3593,9 +3608,9 @@ var app = (function () {
 
     	function getYRel() {
     		if (newMessageY) {
-    			return newMessageY / scrollHeight;
+    			return (newMessageY - 20) / scrollHeight;
     		} else {
-    			return (scrollY + innerHeight - 100) / scrollHeight;
+    			return (scrollY + innerHeight - 110) / scrollHeight;
     		}
     	}
 
@@ -3785,7 +3800,7 @@ var app = (function () {
     class App extends SvelteElement {
     	constructor(options) {
     		super();
-    		this.shadowRoot.innerHTML = `<style>.chat-sidebar{position:absolute;background-color:var(--color-bg);width:10px;z-index:40;padding:0px}.chat-messages{position:absolute;background-color:transparent;width:auto;padding-left:10px}.chat-message-container{position:absolute;width:calc(100vw - 10px)}.chat-message{color:var(--color-fg);font-size:15px;font-family:sans-serif;padding-left:1rem;padding-right:1rem;padding-top:0.25rem;padding-bottom:0.25rem;background-color:var(--color-bg)}.chat-presences{position:absolute;background-color:transparent;width:auto;padding-left:0px}.chat-presence{position:absolute;width:8px;height:8px;z-index:60;border:solid;border-width:1px;border-color:var(--color-bg-input)}.new-message{position:fixed;bottom:0px;padding-bottom:2.5rem;padding-left:10px}.new-message input{background:var(--color-bg-input);font-size:15px;font-family:sans-serif;padding:10px;height:20px;width:300px;border:solid;border-width:2px}.chat-toolbar{background-color:var(--color-bg);position:fixed;margin-left:10px;bottom:0px;z-index:50}.toggle-chat-button{background:none;border:none;padding-left:0.2rem;padding-top:0.5rem;padding-right:1rem;padding-bottom:1rem;color:var(--color-fg);font-size:15px;font-family:sans-serif}.send-button{background:var(--color-fg-input);border:none;padding:0.5rem;color:var(--color-bg-input);font-size:15px;font-family:sans-serif}</style>`;
+    		this.shadowRoot.innerHTML = `<style>.chat-sidebar{position:absolute;background-color:var(--color-bg);width:10px;z-index:40;padding:0px}.chat-messages{position:absolute;background-color:transparent;width:auto;padding-left:10px}.chat-message-container{position:absolute;width:calc(100vw - 10px)}.chat-message{color:var(--color-fg);font-size:15px;font-family:sans-serif;padding-left:1rem;padding-right:1rem;padding-top:0.25rem;padding-bottom:0.25rem;background-color:var(--color-bg)}.chat-presences{position:absolute;background-color:transparent;width:auto;padding-left:0px}.chat-presence{position:absolute;width:8px;height:8px;z-index:60;border:solid;border-width:1px;border-color:var(--color-bg-input)}.new-message{position:fixed;bottom:0px;padding-bottom:45px;padding-left:10px}.new-message input{background:var(--color-bg-input);font-size:15px;font-family:sans-serif;padding:10px;height:20px;width:300px;border:solid;border-width:2px}.chat-toolbar{background-color:var(--color-bg);position:fixed;margin-left:10px;bottom:0px;z-index:50}.toggle-chat-button{background:none;border:none;padding-left:0.2rem;padding-top:0.5rem;padding-right:1rem;padding-bottom:1rem;color:var(--color-fg);font-size:15px;font-family:sans-serif}.send-button{background:var(--color-fg-input);border:none;padding:0.5rem;color:var(--color-bg-input);font-size:15px;font-family:sans-serif}</style>`;
     		init(this, { target: this.shadowRoot }, instance, create_fragment, safe_not_equal, { theme: 0 }, [-1, -1]);
 
     		if (options) {

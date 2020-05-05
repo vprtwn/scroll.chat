@@ -11,6 +11,7 @@ function removeByMsgId(array, msgId) {
 }
 
 function createStore() {
+  // community peers:
   // https://github.com/amark/gun/wiki/volunteer.dht
   const gun = new Gun([
     // "http://localhost:8765/gun", // local development
@@ -19,7 +20,7 @@ function createStore() {
     "https://phrassed.com/gun",
   ]);
 
-  const prefix = "scroll.chat.v1";
+  const prefix = "scroll.chat.0.0.1";
   const nodeName = `${prefix}^${window.location.href}`;
   const { subscribe, update } = writable([]);
   const chats = gun.get(nodeName);
@@ -32,26 +33,39 @@ function createStore() {
         return state;
       }
 
-      const presenceIdx = state.findIndex((m) => m.time === 0 && m.user === val.user);
-      if (val.time === 0 && presenceIdx > -1) {
-        state[presenceIdx] = {
-          msgId,
-          msg: val.msg,
-          time: 0,
-          user: val.user,
-          yRel: val.yRel,
-        };
-        return state;
+      // filter presences older than 1 min
+      const now = new Date();
+      state = state.filter(
+        (v) => v.type === "msg" || (v.type === "pres" && now - v.time < 60 * 1000)
+      );
+
+      if (val.type === "pres") {
+        // 1 presence per user
+        const presenceIdx = state.findIndex((v) => v.type === "pres" && v.user === val.user);
+        if (presenceIdx > -1) {
+          const time = new Date().getTime();
+          state[presenceIdx] = {
+            msgId,
+            msg: val.msg,
+            time: time,
+            user: val.user,
+            yRel: val.yRel,
+            type: "pres",
+          };
+          return state;
+        }
       }
 
-      if (val)
+      if (val) {
         state.push({
           msgId,
           msg: val.msg,
           time: parseFloat(val.time),
           user: val.user,
           yRel: val.yRel,
+          type: val.msg.length > 0 ? "msg" : "pres",
         });
+      }
 
       // no more than 200 messages
       if (state.length > 200) state.shift();
@@ -76,7 +90,8 @@ function createStore() {
         msg: "",
         user: user,
         yRel: yRel,
-        time: 0,
+        time: time,
+        type: "pres",
       };
       chats.get(msgId).put(val);
     },
@@ -86,20 +101,19 @@ function createStore() {
       }
       const time = new Date().getTime();
       const msgId = `${time}_${user}`;
-      chats.get(msgId).put({
-        msg,
-        user,
-        time,
-        yRel,
-      });
+      const val = {
+        msg: msg,
+        user: user,
+        yRel: yRel,
+        time: time,
+        type: "msg",
+      };
+      console.log(val);
+      chats.get(msgId).put(val);
     },
   };
 }
 
 export const gunStore = createStore();
-export const msgStore = derived(gunStore, ($store) =>
-  $store.filter((v) => parseFloat(v.time) !== 0)
-);
-export const presenceStore = derived(gunStore, ($store) =>
-  $store.filter((v) => parseFloat(v.time) === 0)
-);
+export const msgStore = derived(gunStore, ($store) => $store.filter((v) => v.type === "msg"));
+export const presenceStore = derived(gunStore, ($store) => $store.filter((v) => v.type === "pres"));
