@@ -3075,7 +3075,6 @@ var app = (function () {
     	let span;
     	let t0_value = /*val*/ ctx[36].msg + "";
     	let t0;
-    	let span_hidden_value;
     	let t1;
 
     	const block = {
@@ -3089,11 +3088,10 @@ var app = (function () {
     			attr_dev(span, "class", "chat-message");
     			set_style(span, "filter", "drop-shadow(4px 4px 4px " + toHSL(/*val*/ ctx[36].user) + ")");
     			set_style(span, "will-change", "filter");
-    			span.hidden = span_hidden_value = (/*innerHeight*/ ctx[2] - (/*val*/ ctx[36].yRel * /*scrollHeight*/ ctx[3] - /*scrollY*/ ctx[1])) / /*innerHeight*/ ctx[2] >= 0.6;
-    			add_location(span, file, 243, 8, 5346);
+    			add_location(span, file, 244, 8, 5440);
     			attr_dev(div, "class", "chat-message-container");
     			set_style(div, "top", /*val*/ ctx[36].yRel * /*scrollHeight*/ ctx[3] + "px");
-    			add_location(div, file, 240, 6, 5243);
+    			add_location(div, file, 240, 6, 5238);
     			this.first = div;
     		},
     		m: function mount(target, anchor) {
@@ -3107,10 +3105,6 @@ var app = (function () {
 
     			if (dirty[0] & /*$msgStore*/ 512) {
     				set_style(span, "filter", "drop-shadow(4px 4px 4px " + toHSL(/*val*/ ctx[36].user) + ")");
-    			}
-
-    			if (dirty[0] & /*innerHeight, $msgStore, scrollHeight, scrollY*/ 526 && span_hidden_value !== (span_hidden_value = (/*innerHeight*/ ctx[2] - (/*val*/ ctx[36].yRel * /*scrollHeight*/ ctx[3] - /*scrollY*/ ctx[1])) / /*innerHeight*/ ctx[2] >= 0.6)) {
-    				prop_dev(span, "hidden", span_hidden_value);
     			}
 
     			if (dirty[0] & /*$msgStore, scrollHeight*/ 520) {
@@ -3145,7 +3139,7 @@ var app = (function () {
     			attr_dev(div, "class", "chat-presence");
     			set_style(div, "top", /*p*/ ctx[33].yRel * /*scrollHeight*/ ctx[3] + "px");
     			set_style(div, "background-color", toHSL(/*p*/ ctx[33].user));
-    			add_location(div, file, 255, 6, 5752);
+    			add_location(div, file, 255, 6, 5754);
     			this.first = div;
     		},
     		m: function mount(target, anchor) {
@@ -3186,7 +3180,7 @@ var app = (function () {
     			button = element("button");
     			button.textContent = "send";
     			attr_dev(button, "class", "send-button");
-    			add_location(button, file, 278, 10, 6535);
+    			add_location(button, file, 278, 10, 6537);
     		},
     		m: function mount(target, anchor, remount) {
     			insert_dev(target, button, anchor);
@@ -3302,34 +3296,34 @@ var app = (function () {
     			this.c = noop;
     			attr_dev(div0, "class", "chat-sidebar");
     			set_style(div0, "height", /*scrollHeight*/ ctx[3] + "px");
-    			add_location(div0, file, 234, 2, 5035);
+    			add_location(div0, file, 234, 2, 5030);
     			attr_dev(div1, "class", "chat-messages");
     			div1.hidden = div1_hidden_value = !/*showingMessages*/ ctx[5];
-    			add_location(div1, file, 238, 2, 5142);
+    			add_location(div1, file, 238, 2, 5137);
     			attr_dev(div2, "class", "chat-presences");
     			div2.hidden = div2_hidden_value = !/*showingMessages*/ ctx[5];
-    			add_location(div2, file, 253, 2, 5649);
+    			add_location(div2, file, 253, 2, 5651);
     			set_style(input, "filter", "drop-shadow(4px 4px 4px " + toHSL(/*$user*/ ctx[8]) + ")");
     			attr_dev(input, "class", "input");
     			attr_dev(input, "type", "text");
     			attr_dev(input, "name", "null");
     			attr_dev(input, "maxlength", "160");
     			attr_dev(input, "placeholder", "new message");
-    			add_location(input, file, 266, 8, 6137);
-    			add_location(div3, file, 265, 6, 6123);
+    			add_location(input, file, 266, 8, 6139);
+    			add_location(div3, file, 265, 6, 6125);
     			attr_dev(form, "method", "get");
     			attr_dev(form, "autocomplete", "off");
-    			add_location(form, file, 264, 4, 6053);
+    			add_location(form, file, 264, 4, 6055);
     			attr_dev(div4, "class", "new-message");
     			div4.hidden = div4_hidden_value = !/*showingMessages*/ ctx[5];
     			set_style(div4, "position", /*newMessageY*/ ctx[7] ? "relative" : "fixed");
     			set_style(div4, "bottom", "-" + (/*newMessageY*/ ctx[7] || "0") + "px");
-    			add_location(div4, file, 260, 2, 5896);
+    			add_location(div4, file, 260, 2, 5898);
     			attr_dev(button, "class", "toggle-chat-button");
-    			add_location(button, file, 286, 4, 6746);
+    			add_location(button, file, 286, 4, 6748);
     			attr_dev(div5, "class", "chat-toolbar");
     			set_style(div5, "filter", "drop-shadow(4px 4px 4px " + toHSL(/*$user*/ ctx[8]) + ")");
-    			add_location(div5, file, 283, 2, 6651);
+    			add_location(div5, file, 283, 2, 6653);
 
     			set_style(div6, "--color-bg", isDark(/*theme*/ ctx[0])
     			? /*blackT*/ ctx[11]
@@ -3341,7 +3335,7 @@ var app = (function () {
 
     			set_style(div6, "--color-bg-input", /*white*/ ctx[14]);
     			set_style(div6, "--color-fg-input", /*black*/ ctx[12]);
-    			add_location(div6, file, 230, 0, 4836);
+    			add_location(div6, file, 230, 0, 4831);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -3407,7 +3401,7 @@ var app = (function () {
     				set_style(div0, "height", /*scrollHeight*/ ctx[3] + "px");
     			}
 
-    			if (dirty[0] & /*$msgStore, scrollHeight, innerHeight, scrollY*/ 526) {
+    			if (dirty[0] & /*$msgStore, scrollHeight*/ 520) {
     				const each_value_1 = /*$msgStore*/ ctx[9];
     				validate_each_argument(each_value_1);
     				validate_each_keys(ctx, each_value_1, get_each_context_1, get_key);
@@ -3800,7 +3794,7 @@ var app = (function () {
     class App extends SvelteElement {
     	constructor(options) {
     		super();
-    		this.shadowRoot.innerHTML = `<style>.chat-sidebar{position:absolute;background-color:var(--color-bg);width:10px;z-index:40;padding:0px}.chat-messages{position:absolute;background-color:transparent;width:auto;padding-left:10px}.chat-message-container{position:absolute;width:calc(100vw - 10px)}.chat-message{color:var(--color-fg);font-size:15px;font-family:sans-serif;padding-left:1rem;padding-right:1rem;padding-top:0.25rem;padding-bottom:0.25rem;background-color:var(--color-bg)}.chat-presences{position:absolute;background-color:transparent;width:auto;padding-left:0px}.chat-presence{position:absolute;width:8px;height:8px;z-index:60;border:solid;border-width:1px;border-color:var(--color-bg-input)}.new-message{position:fixed;bottom:0px;padding-bottom:45px;padding-left:10px}.new-message input{background:var(--color-bg-input);font-size:15px;font-family:sans-serif;padding:10px;height:20px;width:300px;border:solid;border-width:2px}.chat-toolbar{background-color:var(--color-bg);position:fixed;margin-left:10px;bottom:0px;z-index:50}.toggle-chat-button{background:none;border:none;padding-left:0.2rem;padding-top:0.5rem;padding-right:1rem;padding-bottom:1rem;color:var(--color-fg);font-size:15px;font-family:sans-serif}.send-button{background:var(--color-fg-input);border:none;padding:0.5rem;color:var(--color-bg-input);font-size:15px;font-family:sans-serif}</style>`;
+    		this.shadowRoot.innerHTML = `<style>.chat-sidebar{position:absolute;background-color:var(--color-bg);width:10px;z-index:40;padding:0px}.chat-messages{position:absolute;background-color:transparent;width:auto;padding-left:10px}.chat-message-container{position:absolute;width:calc(100vw - 10px)}.chat-message{color:var(--color-fg);font-size:15px;font-family:sans-serif;padding-left:1rem;padding-right:1rem;padding-top:0.25rem;padding-bottom:0.25rem;background-color:var(--color-bg)}.chat-presences{position:absolute;background-color:transparent;width:auto;padding-left:0px}.chat-presence{position:absolute;width:8px;height:8px;z-index:60;border:solid;border-width:1px;border-color:var(--color-bg-input)}.new-message{position:fixed;bottom:0px;padding-bottom:45px;padding-left:10px}.new-message input{background:var(--color-bg-input);font-size:15px;font-family:sans-serif;padding:10px;height:20px;width:300px;border:solid;border-width:2px}.chat-toolbar{background-color:var(--color-bg);position:fixed;margin-left:10px;bottom:0px;z-index:50}.toggle-chat-button{background:none;border:none;padding-left:5px;padding-top:10px;padding-right:10px;padding-bottom:20px;color:var(--color-fg);font-size:15px;font-family:sans-serif}.send-button{background:var(--color-fg-input);border:none;padding:0.5rem;color:var(--color-bg-input);font-size:15px;font-family:sans-serif}</style>`;
     		init(this, { target: this.shadowRoot }, instance, create_fragment, safe_not_equal, { theme: 0 }, [-1, -1]);
 
     		if (options) {

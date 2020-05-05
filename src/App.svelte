@@ -205,10 +205,10 @@
   .toggle-chat-button {
     background: none;
     border: none;
-    padding-left: 0.2rem;
-    padding-top: 0.5rem;
-    padding-right: 1rem;
-    padding-bottom: 1rem;
+    padding-left: 5px;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 20px;
     color: var(--color-fg);
     font-size: 15px;
     font-family: sans-serif;
@@ -241,11 +241,11 @@
       <div
         class="chat-message-container"
         style="top: {val.yRel * scrollHeight}px;">
+        <!-- hidden={(innerHeight - (val.yRel * scrollHeight - scrollY)) / innerHeight >= 0.6} -->
         <span
           class="chat-message"
           style="filter: drop-shadow(4px 4px 4px {toHSL(val.user)});
-          will-change: filter;"
-          hidden={(innerHeight - (val.yRel * scrollHeight - scrollY)) / innerHeight >= 0.6}>
+          will-change: filter;">
           {val.msg}
         </span>
       </div>
