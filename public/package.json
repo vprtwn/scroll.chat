@@ -1,7 +1,15 @@
 {
   "name": "scroll.chat",
-  "version": "0.1.8",
-  "description": "https://scroll.chat",
+  "version": "0.1.9",
+  "description": "Add a live chat overlay to ~any page",
+  "keywords": [
+    "chat",
+    "decentralized",
+    "p2p",
+    "realtime",
+    "anonymous"
+  ],
+  "homepage": "https://scroll.chat",
   "type": "module",
   "author": "benzguo",
   "license": "MIT",
