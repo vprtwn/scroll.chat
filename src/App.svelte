@@ -201,7 +201,7 @@
 
   .new-message input {
     background: var(--color-bg-input);
-    font-size: 1.25rem;
+    font-size: 1.125rem;
     font-family: sans-serif;
     padding: 1rem;
     height: 20px;
