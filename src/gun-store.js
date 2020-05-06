@@ -1,5 +1,6 @@
 import { writable, derived } from "svelte/store";
 import Gun from "gun/gun";
+import "gun/lib/webrtc";
 
 function removeByMsgId(array, msgId) {
   for (let i in array) {
