@@ -10,6 +10,7 @@
 
   // internal props
   let blackT = "#000000aa";
+  let blackXT = "#00000055";
   let black = "#000000";
   let whiteT = "#ffffffdd";
   let white = "#ffffff";
@@ -233,12 +234,12 @@
     position: absolute;
     top: 0.3rem;
     right: 3.5rem;
-    background: var(--color-fg-input);
+    background: var(--color-send-button);
     border: none;
     border-radius: 0.25rem;
     padding: 0.5rem;
     color: var(--color-bg-input);
-    font-size: 1.5rem;
+    font-size: 0.75rem;
     font-family: sans-serif;
   }
 </style>
@@ -251,7 +252,7 @@
   class="scroll-chat-container"
   on:mousemove={handleMousemove}
   style="--color-bg: {isDark(theme) ? blackT : whiteT}; --color-fg: {isDark(theme) ? white : black};
-  --color-bg-input: {white}; --color-fg-input: {black};">
+  --color-bg-input: {white}; --color-fg-input: {black}; --color-send-button: {blackXT}">
   <div
     class="chat-sidebar"
     on:click={handleSidebarClick}
@@ -296,7 +297,7 @@
           on:focus={handleNewMessageInputFocus}
           placeholder="new message" />
         {#if newMessage}
-          <button class="send-button" on:click={handleSubmit}>↑</button>
+          <button class="send-button" on:click={handleSubmit}>></button>
         {/if}
       </div>
     </form>
