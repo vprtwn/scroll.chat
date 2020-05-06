@@ -231,10 +231,11 @@
 
   .send-button {
     position: absolute;
-    top: 0px;
-    right: 3rem;
+    top: 0.3rem;
+    right: 3.5rem;
     background: var(--color-fg-input);
     border: none;
+    border-radius: 0.25rem;
     padding: 0.5rem;
     color: var(--color-bg-input);
     font-size: 1.5rem;
