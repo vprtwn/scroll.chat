@@ -8,9 +8,11 @@
       background-size: 40px 40px;
       background-image: radial-gradient(circle, #999999 1px, rgba(0, 0, 0, 0) 1px);
     }
+
   </style>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
     <title>scroll.chat</title>
 
     <link href="manifest.json" rel="manifest" />
@@ -20,17 +22,40 @@
     <script src="https://unpkg.com/scroll.chat@latest/bundle.js" /></script>
   </head>
 
-  <div style="position: absolute;" class="pl-5">
-    <div class="text-2xl">
+  <div style="position: absolute;" class="pl-3 pr-2">
+    <div class="text-2xl pt-5 pl-2">
       scroll.chat
     </div>
-    <div class="text-lg">
-      Add a realtime chat overlay to ~any page
+    <div class="text-lg pt-2 pl-2">
+      Add a live chat overlay to ~any page
     </div>
 
-    <div class="w-screen max-w-2xl">
-      <script async src="//jsfiddle.net/benzguo/1djwqyz9/39/embed/html,css/"></script>
+    <div class="w-screen max-w-2xl pt-5">
+      <script async src="//jsfiddle.net/benzguo/1djwqyz9/43/embed/html,css/"></script>
     </div>
+    <div class="pt-5"></div>
+    <div class="pt-4"></div>
+    <div class="text-md bg-white pt-4 px-2">
+      <strong>live</strong> – colored squares in the left sidebar represent live viewers.
+    </div>
+    <div class="text-md bg-white pt-4 px-2">
+      <strong>anonymous</strong> – no logins, anyone can chat.
+    </div>
+    <div class="text-md bg-white pt-4 px-2">
+      <strong>ephemeral</strong> – every URL gets its own chat room, and can store up to 100 messages.
+    </div>
+    <div class="text-md bg-white pt-4 px-2">
+      <strong>customizable</strong> – sort of. there's a dark theme, and the chat can be closed by default.
+    </div>
+    <div class="text-md bg-white pt-4 px-2">
+      <strong>open source</strong> – contributions <a class="underline" href="https://github.com/benzguo/scroll.chat">welcome</a>.
+    </div>
+    <div class="text-md bg-white pt-4 px-2">
+      <strong>decentralized</strong> – powered by <a class="underline" href="https://github.com/amark/gun">GunDB</a>.
+    </div>
+
+
+
   </div>
   <scroll-chat theme="light" />
 </html>

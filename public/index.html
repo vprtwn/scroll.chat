@@ -4,22 +4,40 @@
     body {
       padding: 0;
       margin: 0;
+      height: 200vh;
       background-size: 40px 40px;
-      background-image: radial-gradient(circle, #000000 1px, rgba(0, 0, 0, 0) 1px);
-      height: 400vh;
+      background-image: radial-gradient(circle, #999999 1px, rgba(0, 0, 0, 0) 1px);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    }
+
+    .title {
+      font-size: 1.875rem;
     }
   </style>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
     <title>scroll.chat</title>
 
     <link href="manifest.json" rel="manifest" />
     <link rel="icon" type="image/png" href="/favicon.png" />
 
-    <script src="./bundle.js"></script>
-    <!-- <script src="https://unpkg.com/scroll.chat@latest/bundle.js" /></script> -->
+    <script src="bundle.js" /></script>
   </head>
 
-  <scroll-chat theme="light" chat="open" />
-  <!-- <scroll-chat theme="dark" chat="closed" /> -->
+  <div style="position: absolute;">
+    <div class="title">
+      scroll.chat
+    </div>
+    <div id="description">
+      Add a realtime chat overlay to ~any page
+    </div>
+    <div id="info">
+      scroll.chat is anonymous (for simplicity)
+    </div>
+    <div>
+      <script async src="//jsfiddle.net/benzguo/1djwqyz9/39/embed/html,css/"></script>
+    </div>
+  </div>
+  <scroll-chat theme="light" />
 </html>

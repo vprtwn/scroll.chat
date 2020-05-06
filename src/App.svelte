@@ -21,12 +21,20 @@
   let scrollHeight = 1;
   let chatScrollArea = 0.6; // screen height = 1.0
   let newMessage;
-  let showingMessages = chat === "open";
+  let showingChat = true;
+  let toggledChat = false;
   let newMessageInput;
   let newMessageY = null;
 
   function isDark(theme) {
     return theme === "dark";
+  }
+
+  function isShowingChat(chat, showingChat) {
+    if (chat === "closed" && !toggledChat) {
+      return false;
+    }
+    return showingChat;
   }
 
   function handleKeydown(e) {
@@ -38,9 +46,9 @@
     }
     // esc
     else if (e.keyCode === 27) {
-      if (showingMessages) {
+      if (showingChat) {
         e.preventDefault();
-        showingMessages = false;
+        showingChat = false;
       }
     }
   }
@@ -67,9 +75,10 @@
     }, 0);
   }
 
-  async function toggleShowingMessages() {
-    showingMessages = !showingMessages;
-    if (showingMessages) {
+  async function toggleShowingChat() {
+    showingChat = !showingChat;
+    toggledChat = true;
+    if (showingChat) {
       setTimeout(() => {
         newMessageInput.focus();
       }, 0);
@@ -84,9 +93,9 @@
 
   function getYRel() {
     if (newMessageY) {
-      return (newMessageY - 20) / scrollHeight;
+      return (newMessageY - 30) / scrollHeight;
     } else {
-      return (scrollY + innerHeight - 110) / scrollHeight;
+      return (scrollY + innerHeight - 160) / scrollHeight;
     }
   }
 
@@ -129,10 +138,14 @@
 </script>
 
 <style>
+  .scroll-chat-container {
+    width: 100vw;
+  }
+
   .chat-sidebar {
     position: absolute;
     background-color: var(--color-bg);
-    width: 10px;
+    width: 1rem;
     z-index: 40;
     padding: 0px;
   }
@@ -141,7 +154,7 @@
     position: absolute;
     background-color: transparent;
     width: auto;
-    padding-left: 10px;
+    padding-left: 1rem;
   }
 
   .chat-message-container {
@@ -151,7 +164,7 @@
 
   .chat-message {
     color: var(--color-fg);
-    font-size: 15px;
+    font-size: 1rem;
     font-family: sans-serif;
     padding-left: 1rem;
     padding-right: 1rem;
@@ -169,8 +182,8 @@
 
   .chat-presence {
     position: absolute;
-    width: 8px;
-    height: 8px;
+    width: 0.9rem;
+    height: 0.9rem;
     z-index: 60;
     border: solid;
     border-width: 1px;
@@ -180,17 +193,18 @@
   .new-message {
     position: fixed;
     bottom: 0px;
-    padding-bottom: 45px;
-    padding-left: 10px;
+    padding-bottom: 4.5rem;
+    padding-left: 1rem;
+    padding-right: 50px;
   }
 
   .new-message input {
     background: var(--color-bg-input);
-    font-size: 15px;
+    font-size: 1.25rem;
     font-family: sans-serif;
-    padding: 10px;
+    padding: 1rem;
     height: 20px;
-    width: 300px;
+    width: calc(100vw - 4rem);
     border: solid;
     border-width: 2px;
   }
@@ -207,20 +221,23 @@
     background: none;
     border: none;
     padding-left: 5px;
-    padding-top: 10px;
-    padding-right: 10px;
-    padding-bottom: 20px;
+    padding-top: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 1.5rem;
     color: var(--color-fg);
-    font-size: 15px;
+    font-size: 1rem;
     font-family: sans-serif;
   }
 
   .send-button {
+    position: absolute;
+    top: 0px;
+    right: 3rem;
     background: var(--color-fg-input);
     border: none;
     padding: 0.5rem;
     color: var(--color-bg-input);
-    font-size: 15px;
+    font-size: 1.5rem;
     font-family: sans-serif;
   }
 </style>
@@ -230,6 +247,7 @@
 <svelte:window bind:scrollY bind:innerHeight />
 
 <div
+  class="scroll-chat-container"
   on:mousemove={handleMousemove}
   style="--color-bg: {isDark(theme) ? blackT : whiteT}; --color-fg: {isDark(theme) ? white : black};
   --color-bg-input: {white}; --color-fg-input: {black};">
@@ -237,7 +255,7 @@
     class="chat-sidebar"
     on:click={handleSidebarClick}
     style="height: {scrollHeight}px;" />
-  <div class="chat-messages" hidden={!showingMessages}>
+  <div class="chat-messages" hidden={!isShowingChat(chat, showingChat)}>
     {#each $msgStore as val (val.msgId)}
       <div
         class="chat-message-container"
@@ -261,7 +279,7 @@
   </div>
   <div
     class="new-message"
-    hidden={!showingMessages}
+    hidden={!isShowingChat(chat, showingChat)}
     style="position: {newMessageY ? 'relative' : 'fixed'}; bottom: -{newMessageY || '0'}px;">
     <form method="get" autocomplete="off" on:submit|preventDefault>
       <div>
@@ -277,7 +295,7 @@
           on:focus={handleNewMessageInputFocus}
           placeholder="new message" />
         {#if newMessage}
-          <button class="send-button" on:click={handleSubmit}>send</button>
+          <button class="send-button" on:click={handleSubmit}>↑</button>
         {/if}
       </div>
     </form>
@@ -285,8 +303,8 @@
   <div
     class="chat-toolbar"
     style="filter: drop-shadow(4px 4px 4px {toHSL($user)})">
-    <button class="toggle-chat-button" on:click={toggleShowingMessages}>
-      {showingMessages ? '< hide' : '> chat'}
+    <button class="toggle-chat-button" on:click={toggleShowingChat}>
+      {isShowingChat(chat, showingChat) ? '< hide' : '> chat'}
     </button>
   </div>
 </div>
