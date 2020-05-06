@@ -1,6 +1,6 @@
 {
   "name": "scroll.chat",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "description": "Add a live chat overlay to ~any page",
   "keywords": [
     "chat",
@@ -9,6 +9,7 @@
     "realtime",
     "anonymous"
   ],
+  "repository": "github:benzguo/scroll.chat",
   "homepage": "https://scroll.chat",
   "type": "module",
   "author": "benzguo",
