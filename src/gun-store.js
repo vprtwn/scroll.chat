@@ -29,7 +29,7 @@ function createStore() {
   const { subscribe, update } = writable([]);
   const chats = gun.get(nodeName);
 
-  chats.map((val, msgId) => {
+  chats.map().on((val, msgId) => {
     update((state) => {
       // delete
       if (!val) {
